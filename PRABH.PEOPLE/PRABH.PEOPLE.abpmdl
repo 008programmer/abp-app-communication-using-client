@@ -1,0 +1,109 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "4.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Identity": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "PRABH.PEOPLE.Application": {
+      "path": "src/PRABH.PEOPLE.Application/PRABH.PEOPLE.Application.abppkg",
+      "folder": "src"
+    },
+    "PRABH.PEOPLE.Application.Tests": {
+      "path": "test/PRABH.PEOPLE.Application.Tests/PRABH.PEOPLE.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "PRABH.PEOPLE.Domain.Shared": {
+      "path": "src/PRABH.PEOPLE.Domain.Shared/PRABH.PEOPLE.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "PRABH.PEOPLE.Application.Contracts": {
+      "path": "src/PRABH.PEOPLE.Application.Contracts/PRABH.PEOPLE.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "PRABH.PEOPLE.HttpApi": {
+      "path": "src/PRABH.PEOPLE.HttpApi/PRABH.PEOPLE.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "PRABH.PEOPLE.HttpApi.Client": {
+      "path": "src/PRABH.PEOPLE.HttpApi.Client/PRABH.PEOPLE.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "PRABH.PEOPLE.EntityFrameworkCore.Tests": {
+      "path": "test/PRABH.PEOPLE.EntityFrameworkCore.Tests/PRABH.PEOPLE.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "PRABH.PEOPLE.EntityFrameworkCore": {
+      "path": "src/PRABH.PEOPLE.EntityFrameworkCore/PRABH.PEOPLE.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "PRABH.PEOPLE.TestBase": {
+      "path": "test/PRABH.PEOPLE.TestBase/PRABH.PEOPLE.TestBase.abppkg",
+      "folder": "test"
+    },
+    "PRABH.PEOPLE.Domain.Tests": {
+      "path": "test/PRABH.PEOPLE.Domain.Tests/PRABH.PEOPLE.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "PRABH.PEOPLE.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/PRABH.PEOPLE.HttpApi.Client.ConsoleTestApp/PRABH.PEOPLE.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "PRABH.PEOPLE.DbMigrator": {
+      "path": "src/PRABH.PEOPLE.DbMigrator/PRABH.PEOPLE.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "PRABH.PEOPLE.HttpApi.Host": {
+      "path": "src/PRABH.PEOPLE.HttpApi.Host/PRABH.PEOPLE.HttpApi.Host.abppkg",
+      "folder": "src"
+    },
+    "PRABH.PEOPLE.Blazor": {
+      "path": "src/PRABH.PEOPLE.Blazor/PRABH.PEOPLE.Blazor.abppkg",
+      "folder": "src"
+    },
+    "PRABH.PEOPLE.Blazor.Client": {
+      "path": "src/PRABH.PEOPLE.Blazor.Client/PRABH.PEOPLE.Blazor.Client.abppkg",
+      "folder": "src"
+    },
+    "PRABH.PEOPLE.Domain": {
+      "path": "src/PRABH.PEOPLE.Domain/PRABH.PEOPLE.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}
