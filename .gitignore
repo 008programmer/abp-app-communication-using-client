@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/PRABH.PEOPLE/src/PRABH.PEOPLE.Blazor/Logs/logs.txt
+/PRABH.PROJECTS/src/PRABH.PROJECTS.Blazor/Logs/logs.txt
