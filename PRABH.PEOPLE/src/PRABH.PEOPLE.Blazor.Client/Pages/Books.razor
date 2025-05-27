@@ -1,5 +1,5 @@
 ﻿@page "/books"
-@attribute [Authorize(PEOPLEPermissions.Books.Default)]
+@* @attribute [Authorize(PEOPLEPermissions.Books.Default)] *@
 @using PRABH.PEOPLE.Permissions
 @using Microsoft.AspNetCore.Authorization
 @using Volo.Abp.Application.Dtos
@@ -18,14 +18,14 @@
                 <h2>@L["Books"]</h2>
             </Column>
             <Column ColumnSize="ColumnSize.IsAuto">
-                @if (HasCreatePermission)
-                {
+                @* @if (HasCreatePermission)
+                { *@
                     <Button Color="Color.Primary"
                         Clicked="OpenCreateModalAsync">
                         <Icon Name="IconName.Add" />
                         @L["NewBook"]
                     </Button>
-                }
+                @* } *@
             </Column>
         </Row>
     </CardHeader>
@@ -43,11 +43,11 @@
                         <EntityActions TItem="BookDto" EntityActionsColumn="@EntityActionsColumn">
                             <EntityAction TItem="BookDto"
                                           Text="@L["Edit"]"
-                                          Visible=HasUpdatePermission
+                                          Visible=true
                                           Clicked="() => OpenEditModalAsync(context)" />
                             <EntityAction TItem="BookDto"
                                           Text="@L["Delete"]"
-                                          Visible=HasDeletePermission
+                                          Visible=true
                                           Clicked="() => DeleteEntityAsync(context)"
                                           ConfirmationMessage="()=>GetDeleteConfirmationMessage(context)" />
                         </EntityActions>

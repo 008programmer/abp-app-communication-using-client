@@ -13,3 +13,16 @@ public class BookDto : AuditedEntityDto<Guid>
 
     public float Price { get; set; }
 }
+
+public class ProjectDto : AuditedEntityDto<Guid>
+{
+    public string Name { get; set; }
+
+    public string StartTime { get; set; }
+
+    public string EndTime { get; set; }
+
+    public int WeeklyHours { get; set; }
+}
+
+

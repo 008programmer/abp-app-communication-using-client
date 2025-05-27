@@ -71,14 +71,14 @@ public class PROJECTSMenuContributor : IMenuContributor
         context.Menu.AddItem(bookStoreMenu);
 
         //CHECK the PERMISSION
-        if (await context.IsGrantedAsync(PROJECTSPermissions.Books.Default))
-        {
+        //if (await context.IsGrantedAsync(PROJECTSPermissions.Books.Default))
+        //{
             bookStoreMenu.AddItem(new ApplicationMenuItem(
                 "BooksStore.Books",
                 l["Menu:Books"],
                 url: "/books"
             ));
-        }
+        //}
     }
 
     private async Task ConfigureUserMenuAsync(MenuConfigurationContext context)

@@ -13,3 +13,13 @@ public interface IBookAppService :
 {
 
 }
+
+public interface IProjectAppService :
+    ICrudAppService< //Defines CRUD methods
+        ProjectDto, //Used to show books
+        Guid, //Primary key of the book entity
+        PagedAndSortedResultRequestDto, //Used for paging/sorting
+        CreateUpdateBookDto> //Used to create/update a book
+{
+
+}

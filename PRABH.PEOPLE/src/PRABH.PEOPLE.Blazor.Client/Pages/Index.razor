@@ -1,67 +1,19 @@
 ﻿@page "/"
 @inherits PEOPLEComponentBase
 
-<div class="row mb-3">
-    <div class="col-xl-6 col-12 d-flex">
+<div class="row">
+    <div class="col-xl-9 col-12 d-flex">
         <div class="card h-lg-100 w-100 overflow-hidden">
             <div class="card-body">
                 <div class="starting-content pe-5">
-                    @if (!CurrentUser.IsAuthenticated)
-                    {
-                        <h3>@L["Welcome"]</h3>
-                        <p class="lead text-muted mb-2">@L["LongWelcomeMessage"]</p>
-                        <a href="/authentication/login" class="btn btn-primary mb-4"><i class="fa-solid fa-right-to-bracket me-1"></i><span>@L["Login"]</span></a>
-                    }
-
-                    <h4>Getting Started</h4>
-                    <p class="text-muted mb-2">Learn how to create and run
-                        a
-                        new web application using the application startup
-                        template.</p>
-                    <a href="https://abp.io/docs/latest/getting-started" class="btn btn-brand mb-2" target="_blank">Getting
-                        Started</a>
-
-                    <h4>Web Application Development Tutorial</h4>
-                    <p class="text-muted mb-2">Learn how to build an ABP based
-                        web
-                        application named Acme.BookStore.</p>
-                    <a href="https://abp.io/docs/latest/tutorials/book-store/part-1?UI=MVC&DB=EF" class="btn btn-primary soft mb-2" target="_blank">Explore Tutorial</a>
+                    <h1>Welcome to Prabh.People Website</h1>
+                    <p> 💕💕 By the People For the People Org</p>
                 </div>
                 <img class="card-bg-image" src="/images/getting-started/bg-01.png">
             </div>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6 d-flex">
-        <div class="row">
-            <div class="col-12 d-flex">
-                <div class="card overflow-hidden mb-3">
-                    <div class="card-body d-flex flex-column">
-                        <div class="abp-support abp-logo mb-2"></div>
-                        <p class="text-muted mb-2">You can check for
-                            similar problems and solutions, or open a
-                            new topic to discuss your specific issue.</p>
-                        <a href="https://abp.io/support/questions" class="btn btn-brand soft" target="_blank">Visit Support</a>
-                        <img style="margin-bottom: -24px;" class="w-100 mt-auto" src="/images/getting-started/img-support.png">
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 d-flex">
-                <div class="card h-md-100 overflow-hidden">
-                    <div class="card-body d-flex flex-column">
-                        <div class="abp-blog abp-logo mb-2"></div>
-                        <p class="text-muted mb-2">You can find content
-                            on .NET development, cross-platform, ASP.NET
-                            application templates, ABP-related news, and
-                            more.</p>
-                        <a href="https://abp.io/blog" class="btn btn-brand soft" target="_blank">Visit Blog</a>
-
-                        <img style="margin-bottom: -24px;" class="w-100 mt-auto" src="/images/getting-started/img-blog.png">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-md-6 d-flex">
+    <div class="col-xl-3 d-flex">
         <div class="card h-100 overflow-hidden">
             <div class="card-body">
                 <div class="abp-community abp-logo mb-2"></div>

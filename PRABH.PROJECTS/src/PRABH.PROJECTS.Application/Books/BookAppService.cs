@@ -11,7 +11,7 @@ using System.Linq.Dynamic.Core;
 
 namespace PRABH.PROJECTS.Books;
 
-[Authorize(PROJECTSPermissions.Books.Default)]
+//[Authorize(PROJECTSPermissions.Books.Default)]
 public class BookAppService : ApplicationService, IBookAppService
 {
     private readonly IRepository<Book, Guid> _repository;
@@ -44,7 +44,48 @@ public class BookAppService : ApplicationService, IBookAppService
         );
     }
 
-    [Authorize(PROJECTSPermissions.Books.Create)]
+
+    public async Task<PagedResultDto<ProjectDto>> GetProjectsAsync()
+    {
+        var projects = new List<Project>
+{
+    new Project
+    {
+        Name = "Project 1",
+        StartTime = "2023-01-01",
+        EndTime = "2023-12-31",
+        WeeklyHours = 40
+    },
+    new Project
+    {
+        Name = "Project 2",
+        StartTime = "2023-02-01",
+        EndTime = "2023-11-30",
+        WeeklyHours = 35
+    },
+    new Project
+    {
+        Name = "Project 3",
+        StartTime = "2023-03-15",
+        EndTime = "2023-09-15",
+        WeeklyHours = 20
+    }
+};
+
+        var queryable = projects.AsQueryable();
+        var query = queryable
+            .OrderBy(x => x.Name);
+
+        var books = await AsyncExecuter.ToListAsync(query);
+        var totalCount = await AsyncExecuter.CountAsync(queryable);
+
+        return new PagedResultDto<ProjectDto>(
+            totalCount,
+            ObjectMapper.Map<List<Project>, List<ProjectDto>>(books)
+        );
+    }
+
+    //[Authorize(PROJECTSPermissions.Books.Create)]
     public async Task<BookDto> CreateAsync(CreateUpdateBookDto input)
     {
         var book = ObjectMapper.Map<CreateUpdateBookDto, Book>(input);
@@ -52,7 +93,7 @@ public class BookAppService : ApplicationService, IBookAppService
         return ObjectMapper.Map<Book, BookDto>(book);
     }
 
-    [Authorize(PROJECTSPermissions.Books.Edit)]
+    //[Authorize(PROJECTSPermissions.Books.Edit)]
     public async Task<BookDto> UpdateAsync(Guid id, CreateUpdateBookDto input)
     {
         var book = await _repository.GetAsync(id);
@@ -61,7 +102,7 @@ public class BookAppService : ApplicationService, IBookAppService
         return ObjectMapper.Map<Book, BookDto>(book);
     }
 
-    [Authorize(PROJECTSPermissions.Books.Delete)]
+    //[Authorize(PROJECTSPermissions.Books.Delete)]
     public async Task DeleteAsync(Guid id)
     {
         await _repository.DeleteAsync(id);

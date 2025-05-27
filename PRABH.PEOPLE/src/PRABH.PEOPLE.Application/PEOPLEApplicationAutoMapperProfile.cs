@@ -8,6 +8,7 @@ public class PEOPLEApplicationAutoMapperProfile : Profile
     public PEOPLEApplicationAutoMapperProfile()
     {
         CreateMap<Book, BookDto>();
+        CreateMap<Employee, EmployeeDto>();
         CreateMap<CreateUpdateBookDto, Book>();
         /* You can configure your AutoMapper mapping configuration here.
          * Alternatively, you can split your mapping configurations
