@@ -1,0 +1,109 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "4.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Identity": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "Prabh.Stock.Application": {
+      "path": "src/Prabh.Stock.Application/Prabh.Stock.Application.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Stock.Application.Tests": {
+      "path": "test/Prabh.Stock.Application.Tests/Prabh.Stock.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "Prabh.Stock.Domain.Shared": {
+      "path": "src/Prabh.Stock.Domain.Shared/Prabh.Stock.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Stock.Application.Contracts": {
+      "path": "src/Prabh.Stock.Application.Contracts/Prabh.Stock.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Stock.HttpApi": {
+      "path": "src/Prabh.Stock.HttpApi/Prabh.Stock.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Stock.HttpApi.Client": {
+      "path": "src/Prabh.Stock.HttpApi.Client/Prabh.Stock.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Stock.EntityFrameworkCore.Tests": {
+      "path": "test/Prabh.Stock.EntityFrameworkCore.Tests/Prabh.Stock.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "Prabh.Stock.EntityFrameworkCore": {
+      "path": "src/Prabh.Stock.EntityFrameworkCore/Prabh.Stock.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Stock.TestBase": {
+      "path": "test/Prabh.Stock.TestBase/Prabh.Stock.TestBase.abppkg",
+      "folder": "test"
+    },
+    "Prabh.Stock.Domain.Tests": {
+      "path": "test/Prabh.Stock.Domain.Tests/Prabh.Stock.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "Prabh.Stock.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/Prabh.Stock.HttpApi.Client.ConsoleTestApp/Prabh.Stock.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "Prabh.Stock.DbMigrator": {
+      "path": "src/Prabh.Stock.DbMigrator/Prabh.Stock.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Stock.HttpApi.Host": {
+      "path": "src/Prabh.Stock.HttpApi.Host/Prabh.Stock.HttpApi.Host.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Stock.Blazor": {
+      "path": "src/Prabh.Stock.Blazor/Prabh.Stock.Blazor.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Stock.Blazor.Client": {
+      "path": "src/Prabh.Stock.Blazor.Client/Prabh.Stock.Blazor.Client.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Stock.Domain": {
+      "path": "src/Prabh.Stock.Domain/Prabh.Stock.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}
