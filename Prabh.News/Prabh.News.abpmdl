@@ -1,0 +1,109 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "4.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Identity": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "Prabh.News.Application": {
+      "path": "src/Prabh.News.Application/Prabh.News.Application.abppkg",
+      "folder": "src"
+    },
+    "Prabh.News.Application.Tests": {
+      "path": "test/Prabh.News.Application.Tests/Prabh.News.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "Prabh.News.Domain.Shared": {
+      "path": "src/Prabh.News.Domain.Shared/Prabh.News.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "Prabh.News.Application.Contracts": {
+      "path": "src/Prabh.News.Application.Contracts/Prabh.News.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "Prabh.News.HttpApi": {
+      "path": "src/Prabh.News.HttpApi/Prabh.News.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "Prabh.News.HttpApi.Client": {
+      "path": "src/Prabh.News.HttpApi.Client/Prabh.News.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "Prabh.News.EntityFrameworkCore.Tests": {
+      "path": "test/Prabh.News.EntityFrameworkCore.Tests/Prabh.News.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "Prabh.News.EntityFrameworkCore": {
+      "path": "src/Prabh.News.EntityFrameworkCore/Prabh.News.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "Prabh.News.TestBase": {
+      "path": "test/Prabh.News.TestBase/Prabh.News.TestBase.abppkg",
+      "folder": "test"
+    },
+    "Prabh.News.Domain.Tests": {
+      "path": "test/Prabh.News.Domain.Tests/Prabh.News.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "Prabh.News.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/Prabh.News.HttpApi.Client.ConsoleTestApp/Prabh.News.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "Prabh.News.DbMigrator": {
+      "path": "src/Prabh.News.DbMigrator/Prabh.News.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "Prabh.News.HttpApi.Host": {
+      "path": "src/Prabh.News.HttpApi.Host/Prabh.News.HttpApi.Host.abppkg",
+      "folder": "src"
+    },
+    "Prabh.News.Blazor": {
+      "path": "src/Prabh.News.Blazor/Prabh.News.Blazor.abppkg",
+      "folder": "src"
+    },
+    "Prabh.News.Blazor.Client": {
+      "path": "src/Prabh.News.Blazor.Client/Prabh.News.Blazor.Client.abppkg",
+      "folder": "src"
+    },
+    "Prabh.News.Domain": {
+      "path": "src/Prabh.News.Domain/Prabh.News.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}

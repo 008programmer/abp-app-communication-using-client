@@ -1,0 +1,109 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "4.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.Identity": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.TenantManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "9.1.1",
+      "isInstalled": true
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {}
+    }
+  },
+  "packages": {
+    "Prabh.Finance.Application": {
+      "path": "src/Prabh.Finance.Application/Prabh.Finance.Application.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Finance.Application.Tests": {
+      "path": "test/Prabh.Finance.Application.Tests/Prabh.Finance.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "Prabh.Finance.Domain.Shared": {
+      "path": "src/Prabh.Finance.Domain.Shared/Prabh.Finance.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Finance.Application.Contracts": {
+      "path": "src/Prabh.Finance.Application.Contracts/Prabh.Finance.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Finance.HttpApi": {
+      "path": "src/Prabh.Finance.HttpApi/Prabh.Finance.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Finance.HttpApi.Client": {
+      "path": "src/Prabh.Finance.HttpApi.Client/Prabh.Finance.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Finance.EntityFrameworkCore.Tests": {
+      "path": "test/Prabh.Finance.EntityFrameworkCore.Tests/Prabh.Finance.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "Prabh.Finance.EntityFrameworkCore": {
+      "path": "src/Prabh.Finance.EntityFrameworkCore/Prabh.Finance.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Finance.TestBase": {
+      "path": "test/Prabh.Finance.TestBase/Prabh.Finance.TestBase.abppkg",
+      "folder": "test"
+    },
+    "Prabh.Finance.Domain.Tests": {
+      "path": "test/Prabh.Finance.Domain.Tests/Prabh.Finance.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "Prabh.Finance.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/Prabh.Finance.HttpApi.Client.ConsoleTestApp/Prabh.Finance.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "Prabh.Finance.DbMigrator": {
+      "path": "src/Prabh.Finance.DbMigrator/Prabh.Finance.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Finance.HttpApi.Host": {
+      "path": "src/Prabh.Finance.HttpApi.Host/Prabh.Finance.HttpApi.Host.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Finance.Blazor": {
+      "path": "src/Prabh.Finance.Blazor/Prabh.Finance.Blazor.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Finance.Blazor.Client": {
+      "path": "src/Prabh.Finance.Blazor.Client/Prabh.Finance.Blazor.Client.abppkg",
+      "folder": "src"
+    },
+    "Prabh.Finance.Domain": {
+      "path": "src/Prabh.Finance.Domain/Prabh.Finance.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+﻿{
+  "applications": {
+    "Prabh.Finance.HttpApi.Host": {
+      "type": "dotnet-project",
+      "launchUrl": "https://localhost:44381",
+      "path": "../../../src/Prabh.Finance.HttpApi.Host/Prabh.Finance.HttpApi.Host.csproj",
+      "kubernetesService": ".*-httpapihost$",
+      "healthCheckEndpoint": "/health-status",
+      "healthUiEndpoint": "/health-ui",
+      "execution": {
+        "order": 4
+      }
+    },
+    "Prabh.Finance.Blazor": {
+      "type": "dotnet-project",
+      "launchUrl": "https://localhost:44307",
+      "path": "../../../src/Prabh.Finance.Blazor/Prabh.Finance.Blazor.csproj",
+      "healthCheckEndpoint": "/",
+      "kubernetesService": ".*-blazor$",
+      "execution": {
+        "order": 2
+      }
+    }
+  }
+}
