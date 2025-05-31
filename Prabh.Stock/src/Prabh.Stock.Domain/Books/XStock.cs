@@ -1,9 +1,9 @@
 ﻿using System;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace Prabh.Stock.Books;
+namespace Prabh.Stock.Stocks;
 
-public class StockM : AuditedAggregateRoot<Guid>
+public class XStock : AuditedAggregateRoot<Guid>
 {
     public string Ticker { get; set; }
     public string CompanyName { get; set; }

@@ -8,7 +8,7 @@ public class StockApplicationAutoMapperProfile : Profile
     public StockApplicationAutoMapperProfile()
     {
         CreateMap<Book, BookDto>();
-        CreateMap<StockM, StockDto>();
+        CreateMap<Stocks.XStock, StockDto>();
         CreateMap<CreateUpdateBookDto, Book>();
         /* You can configure your AutoMapper mapping configuration here.
          * Alternatively, you can split your mapping configurations
