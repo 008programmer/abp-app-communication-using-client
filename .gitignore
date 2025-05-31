@@ -4,3 +4,7 @@
 
 /PRABH.PEOPLE/src/PRABH.PEOPLE.Blazor/Logs/logs.txt
 /PRABH.PROJECTS/src/PRABH.PROJECTS.Blazor/Logs/logs.txt
+/Prabh.Stock/src/Prabh.Stock.Blazor/Logs/logs.txt
+/Prabh.Finance/src/Prabh.Finance.Blazor/Logs/logs.txt
+*.txt
+/Prabh.Finance/src/Prabh.Finance.Blazor/Logs/logs.txt
