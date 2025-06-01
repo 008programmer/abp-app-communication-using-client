@@ -24,7 +24,7 @@ Here, the applications screenshot of all three applications.
 
 ![prabh-news-ui](prabh.news.png)
 
-**Home Page - Main Application Application Prabh.Fiance**
+**Home Page - News Application Prabh.Finance**
 
 ![prabh-finance-ui](prabh.finance.png)
 
@@ -32,26 +32,24 @@ Here, the applications screenshot of all three applications.
 
 The following tools are needed to be able to run the solution.
 
-- .NET 5.0 SDK
-- Visual Studio 2019 16.8.0+ or another compatible IDE
-- MongoDB Server (with MongoDB Compass)
+- .NET 9.0 SDK
+- Visual Studio 2022 or another compatible IDE
+- PostgreSQL
 
 ## Development
 
-### Creating a new Application
+### Notest about Running all Applications side by side
 
-- Use the following ABP CLI command:
-
-```bash
-abp new EventOrganizer -u blazor -d mongodb
-```
+- If you try to run more the one application UI at a time that Sometimes it creates problem so you can choose different browser to run the second application UI.
 
 ### Open & Run the Application
 
-- Open the solution in Visual Studio (or your favorite IDE).
-- Run the `EventOrganizer.DbMigrator` application to seed the initial data.
-- Run the `EventOrganizer.HttpApi.Host` application that starts the server side.
-- Run the `EventOrganizer.Blazor` application to start the UI.
+- Open the Stock Application solution in Visual Studio (or your favorite IDE).
+- Run the `Prabh.Stock.DbMigrator` application to seed the initial data.
+- Run the `Prabh.Stock.HttpApi.Host` application that starts the server side.
+- Run the `Prabh.Stock.Blazor` application to start the UI.
+
+- Same Process is applicable for Prabh.News and Prabh.Finance
 
 ### Apply the Custom Styles
 
