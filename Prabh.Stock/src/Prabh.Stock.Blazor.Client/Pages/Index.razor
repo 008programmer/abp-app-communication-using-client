@@ -1,16 +1,18 @@
 ﻿@page "/"
 @inherits StockComponentBase
 <style>
-    .f{
+    .f {
         display: grid;
         justify-content: center;
         align-content: center;
     }
-    .c{
-        color:red
+
+    .c {
+        color: red
     }
-    .f3{
-        font-size:44px;
+
+    .f3 {
+        font-size: 44px;
     }
 </style>
 <div class="row">
@@ -50,36 +52,39 @@
 </div>
 <div class="row">
     <div class="col p-2">
-    <CardDeck>
-        <Card>
-            <CardBody>
-                <CardTitle Size="5">Apple Inc. (AAPL)</CardTitle>
-                <CardText>
-                    Apple stock rose 1.2% today after announcing strong quarterly earnings driven by iPhone sales and services growth.
-                </CardText>
-                <Button Color="Color.Primary">View Details</Button>
-            </CardBody>
-        </Card>
-        <Card>
-            
-            <CardBody>
-                <CardTitle Size="5">Tesla Inc. (TSLA)</CardTitle>
-                <CardText>
-                    Tesla shares dipped 0.8% amid reports of slowing EV demand in international markets and increased competition.
-                </CardText>
-                <Button Color="Color.Primary">View Details</Button>
-            </CardBody>
-        </Card>
-        <Card>
-            
-            <CardBody>
-                <CardTitle Size="5">Amazon.com Inc. (AMZN)</CardTitle>
-                <CardText>
-                    Amazon's stock climbed 2.4% as investors reacted positively to expansion in AI-driven cloud services.
-                </CardText>
-                <Button Color="Color.Primary">View Details</Button>
-            </CardBody>
-        </Card>
-    </CardDeck>
+        <CardDeck>
+            <Card>
+                <CardBody>
+                    <CardTitle Size="5">Apple Inc. (AAPL)</CardTitle>
+                    <CardText>
+                        Apple stock rose 1.2% today after announcing strong quarterly earnings driven by iPhone sales
+                        and services growth.
+                    </CardText>
+                    <Button Color="Color.Primary">View Details</Button>
+                </CardBody>
+            </Card>
+            <Card>
+
+                <CardBody>
+                    <CardTitle Size="5">Tesla Inc. (TSLA)</CardTitle>
+                    <CardText>
+                        Tesla shares dipped 0.8% amid reports of slowing EV demand in international markets and
+                        increased competition.
+                    </CardText>
+                    <Button Color="Color.Primary">View Details</Button>
+                </CardBody>
+            </Card>
+            <Card>
+
+                <CardBody>
+                    <CardTitle Size="5">Amazon.com Inc. (AMZN)</CardTitle>
+                    <CardText>
+                        Amazon's stock climbed 2.4% as investors reacted positively to expansion in AI-driven cloud
+                        services.
+                    </CardText>
+                    <Button Color="Color.Primary">View Details</Button>
+                </CardBody>
+            </Card>
+        </CardDeck>
     </div>
 </div>
