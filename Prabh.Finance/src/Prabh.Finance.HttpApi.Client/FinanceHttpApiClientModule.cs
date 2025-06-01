@@ -7,6 +7,7 @@ using Volo.Abp.VirtualFileSystem;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.TenantManagement;
+//using Prabh.Stock;
 
 namespace Prabh.Finance;
 
@@ -18,6 +19,7 @@ namespace Prabh.Finance;
     typeof(AbpIdentityHttpApiClientModule),
     typeof(AbpTenantManagementHttpApiClientModule),
     typeof(AbpSettingManagementHttpApiClientModule)
+    //typeof(StockHttpApiClientModule)
 )]
 public class FinanceHttpApiClientModule : AbpModule
 {
@@ -29,6 +31,11 @@ public class FinanceHttpApiClientModule : AbpModule
             typeof(FinanceApplicationContractsModule).Assembly,
             RemoteServiceName
         );
+
+        //context.Services.AddHttpClientProxies(
+        //    typeof(StockApplicationContractsModule).Assembly,
+        //    "stocks"
+        //);
 
         Configure<AbpVirtualFileSystemOptions>(options =>
         {

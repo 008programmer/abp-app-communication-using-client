@@ -22,8 +22,10 @@
     <PackageReference Include="Volo.Abp.Identity.HttpApi.Client" Version="9.1.1" />
     <PackageReference Include="Volo.Abp.Account.HttpApi.Client" Version="9.1.1" />
     <PackageReference Include="Volo.Abp.TenantManagement.HttpApi.Client" Version="9.1.1" />
+		<!--<ProjectReference Include="..\..\..\Prabh.Stock\src\Prabh.Stock.HttpApi.Client\Prabh.Stock.HttpApi.Client.csproj" />
+		<ProjectReference Include="..\..\..\Prabh.News\src\Prabh.News.HttpApi.Client\Prabh.News.HttpApi.Client.csproj" />-->
   </ItemGroup>
-
+	
   <ItemGroup>
     <EmbeddedResource Include="**\*generate-proxy.json" />
     <Content Remove="**\*generate-proxy.json" />
