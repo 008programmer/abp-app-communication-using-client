@@ -21,7 +21,7 @@ namespace Prabh.News;
 )]
 public class NewsHttpApiClientModule : AbpModule
 {
-    public const string RemoteServiceName = "Default";
+    public const string RemoteServiceName = "News";
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {

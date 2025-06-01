@@ -1,92 +1,76 @@
 ﻿@page "/"
 @* @using Prabh.Stock.Books *@
-
+@* Add the correct @using for Carousel components if needed, e.g.: *@
+@* @using YourCarouselComponentNamespace *@
 
 @inherits FinanceComponentBase
 
-
 <style>
     .f {
-        display: grid;
-        justify-content: center;
-        align-content: center;
+    display: grid;
+    justify-content: center;
+    align-content: center;
     }
 
     .c {
-        color: red
+    color: red
     }
 
     .f3 {
-        font-size: 44px;
+    font-size: 44px;
     }
+    .cc{
+        height:600px
+    }
+
+    
 </style>
 <div class="row">
-    <div class="col-xl-9 col-12 d-flex">
+    <div class="col d-flex cc">
         <div class="card h-lg-100 w-100 overflow-hidden">
             <div class="card-body f">
-                <div class="starting-content pe-5">
+                <div class="starting-content pe-5" style="position:static !important">
                     <h1 class="f3">Prabh <strong class="c">Finance</strong> Website</h1>
                     <p> 💕💕 Utlimate Solution for Finance Management</p>
+
+                    <div>
+            @if (LatestStockNews.Count > 0)
+        {
+            <CardDeck>
+                @foreach (var item in LatestStockNews)
+                {
+                    <Card Background="Background.Success" WhiteText>
+                        <CardBody>
+                            <CardTitle Size="5">
+                                                <div class="d-flex justify-content-between">
+                                                    <div>@item.CompanyName</div>
+                                                    <div>$ @item.CurrentPrice</div>
+                                </div>
+                                                
+                                            </CardTitle>
+                                            
+                            <CardText>
+                                @item.Summary
+                            </CardText>
+
+                        </CardBody>
+                    </Card>
+                }
+            </CardDeck>
+        }
+        else
+        {
+            <Callout Color="CalloutColor.Danger" HideHeading="true">
+                <h4>Something is Wrong</h4>
+                <p>No stock news could be loaded. Please check with your admin or try again later.</p>
+            </Callout>
+        }
                 </div>
                 <img class="card-bg-image" src="/images/getting-started/bg-01.png">
             </div>
         </div>
-    </div>
-    <div class="col-xl-3 d-flex">
-        <div class="card h-100 overflow-hidden">
-            <div class="card-body">
-                <div class="abp-community abp-logo mb-2"></div>
-                <p class="lead text-muted">
-                    A unique community platform
-                    for <span class="fw-bold">ABP Lovers!</span>
-                </p>
-                <p class="text-muted mb-2">
-                    Explore all ABP users'
-                    experiences with the ABP Framework, discover
-                    articles and videos on how to use ABP, and join
-                    raffles for a chance to win surprise gifts!
-                </p>
-                <a class="btn btn-brand soft mb-3" href="https://abp.io/community/" target="_blank">
-                    Join ABP
-                    Community
-                </a>
-            </div>
-            <img class="mt-3 w-100" src="/images/getting-started/img-community.png">
+        
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col p-2">
-        <CardDeck>
-            <Card Background="Background.Success" WhiteText>
-                <CardBody>
-                    <CardTitle Size="5" >Finance Secret 1</CardTitle>
-                    <CardText>
-                        This is a dummy text for Finance Secret 1. More details coming soon!
-                    </CardText>
-                    
-                </CardBody>
-            </Card>
-            <Card Background="Background.Success" WhiteText>
 
-                <CardBody>
-                    <CardTitle Size="5" >Finance Secret 2</CardTitle>
-                    <CardText>
-                        This is a dummy text for Finance Secret 2. More details coming soon!
-                    </CardText>
-                    
-                </CardBody>
-            </Card>
-            <Card Background="Background.Success" WhiteText>
-
-                <CardBody>
-                    <CardTitle Size="5">Finance Secret 3</CardTitle>
-                    <CardText>
-                        This is a dummy text for Finance Secret 3. More details coming soon!
-                    </CardText>
-                    
-                </CardBody>
-            </Card>
-        </CardDeck>
-    </div>
-</div>

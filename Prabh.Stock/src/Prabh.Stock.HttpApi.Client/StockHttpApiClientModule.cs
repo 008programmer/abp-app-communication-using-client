@@ -21,7 +21,7 @@ namespace Prabh.Stock;
 )]
 public class StockHttpApiClientModule : AbpModule
 {
-    public const string RemoteServiceName = "Default";
+    public const string RemoteServiceName = "Stocks";
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {

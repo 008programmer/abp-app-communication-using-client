@@ -6,7 +6,7 @@ In this article, we will manage to call Prabh.News and Prabh.Stocks backends usi
 
 The application has been developed with **Blazor** as the UI framework and **backend** as the database provider.
 
-> This tutorial is a small portion of a big playlis name 'Managing and restucting multiple abp towards microservice approach
+> This tutorial is a small portion of a big playlis name 'Managing and restucting blazor UI through RCL of multiple abp towards microservice approach
 
 ### Source Code
 
@@ -48,696 +48,181 @@ The following tools are needed to be able to run the solution.
 - Run the `Prabh.Stock.DbMigrator` application to seed the initial data.
 - Run the `Prabh.Stock.HttpApi.Host` application that starts the server side.
 - Run the `Prabh.Stock.Blazor` application to start the UI.
+- Repeat above steps for <strong>Prabh.News</strong> and <strong>Prabh.Finance</strong>
+- Stop All Applications after checking they are working fine.
 
-- Same Process is applicable for Prabh.News and Prabh.Finance
+### `Stock API` Configuration Update
 
-### Apply the Custom Styles
+- Update Remote Service Name for Stock API
 
-- Add styles to `wwwroot/main.css`:
+  - Open the `Prabh.Stock.HttpApi.Client` project and update the name of the Stock application's backend remote service to `Stock`.
+    ```csharp
+    public const string RemoteServiceName = "Default";
+    //change to
+    public const string RemoteServiceName = "Stock";
+    ```
 
-```css
-body.abp-application-layout {
-  background-color: #222 !important;
-  font-size: 18px;
-}
-nav#main-navbar.bg-dark {
-  background-color: #222 !important;
-  box-shadow: none !important;
-}
-.event-pic {
-  width: 100%;
-  border-radius: 12px;
-  box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.5);
-  margin-bottom: 10px;
-}
-.event-link:hover,
-.event-link:hover * {
-  text-decoration: none;
-}
-.event-link:hover .event-pic {
-  box-shadow: 5px 5px 0px 0px #ffd800;
-}
-.event-form {
-  background-color: #333 !important;
-  box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.5);
-  border-radius: 12px;
-}
-.table {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 5px 5px 0px 0px rgba(0, 0, 0, 0.5);
-}
-.table th {
-  border: 0 !important;
-}
-.modal {
-  color: #333;
-}
-.page-item:first-child .page-link {
-  margin-left: 0;
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
-}
-.page-item:last-child .page-link {
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
-}
-.btn {
-  border-radius: 8px;
-}
-.att-list {
-  list-style: none;
-  padding: 0;
-}
-.att-list li {
-  padding: 4px 0 0 0;
-}
-```
+- Decouple and Add new value in Remote Service for Stock API
 
-- `wwwroot/index.html`: Remove `bg-light` class from the `body` tag and add `bg-dark text-light`.
+  - Add a new `Stock` property with the same URL in `appsettings`.
 
-### Domain Layer
+    This change is part of our effort to decouple our APIs from the inherited backend APIs (such as `Accounts`, `Permissions`, etc.).
 
-- Add the following `Event` aggregate (with `EventAttendee`) to the solution:
+    ### Going forward:
 
-**Event**
+  - The **Stock UI** and any third party(`e.g. Prabh Finance`) will use the `Stock` prop URL to communicate with APIs developed by us.
+  - The **Stock UI** will use the `Default` prop URL to communicate with APIs developed by abp and atached to our backend.
 
-```csharp
-using System;
-using System.Collections.Generic;
-using Volo.Abp.Domain.Entities.Auditing;
-
-namespace EventOrganizer.Events
-{
-    public class Event : FullAuditedAggregateRoot<Guid>
-    {
-        public string Title { get; set; }
-
-        public string Description { get; set; }
-
-        public bool IsFree { get; set; }
-
-        public DateTime StartTime { get; set; }
-
-        public ICollection<EventAttendee> Attendees { get; set; }
-
-        public Event()
-        {
-            Attendees = new List<EventAttendee>();
-        }
+    ```json
+    "RemoteServices": {
+      "Default": {
+        "BaseUrl": "https://localhost:44354"
+      },
+      "AbpAccountPublic": {
+        "BaseUrl": "https://localhost:44354"
+      }
     }
-}
-```
+    //add a new prop named Stock
+    "RemoteServices": {
+      "Default": {
+        "BaseUrl": "https://localhost:44354"
+      },
+      "Stock": {
+        "BaseUrl": "https://localhost:44354"
+      },
+      "AbpAccountPublic": {
+        "BaseUrl": "https://localhost:44354"
+      }
+    },
+    ```
 
-**EventAttendee**
+### `Prabh Finance` UI Configuration Update
 
-```csharp
-using System;
-using Volo.Abp.Auditing;
+- Open the **Prabh Finance Application** solution in Visual Studio (or your preferred IDE).
+- In the `Prabh.Finance.HttpApi.Client` project, add project references to:
 
-namespace EventOrganizer.Events
-{
-    public class EventAttendee : IHasCreationTime
-    {
-        public Guid UserId { get; set; }
+  - `Prabh.Stock.HttpApi.Client`
+  - `Prabh.News.HttpApi.Client`
 
-        public DateTime CreationTime { get; set; }
-    }
-}
-```
+      <ProjectReference Include="..\..\..\Prabh.Stock\src\Prabh.Stock.HttpApi.Client\Prabh.Stock.HttpApi.Client.csproj" />
+      <ProjectReference Include="..\..\..\Prabh.News\src\Prabh.News.HttpApi.Client\Prabh.News.HttpApi.Client.csproj" />
 
-### MongoDB Mapping
+  ```
 
-- Add the following property to the `EventOrganizerMongoDbContext`:
+  ```
 
-```csharp
-public IMongoCollection<Event> Events => Collection<Event>();
-```
+- Sometimes Visual Studio does show a error related to reference. If you encounter this issue, run the following command in the terminal to resolve it and restart visual studio
 
-### Clean Index.razor & Add the Header & "Create Event" button
+  ```cmd
+  dotnet restore
+  ```
 
-- Clean the `Index.razor` file.
-- Replace the content with the following code:
+- Open `FinanceHttpApiClientModule` module and add `StockHttpApiClientModule` in the DependsOn(a beauty of ABP modularity)
 
-```html
-@page "/" @inherits EventOrganizerComponentBase
-<Row Class="mb-4">
-  <Column Class="text-left">
-    <h1>Upcoming Events</h1>
-  </Column>
-  <Column Class="text-right">
-    @if (CurrentUser.IsAuthenticated) {
-    <a class="btn btn-primary" href="/create-event">
-      <i class="fa fa-plus"></i> @L["CreateEvent"]
-    </a>
-    }
-  </Column>
-</Row>
-```
+  ```csharp
+  using Prabh.Stock;
+  using Prabh.News;
 
-- Open `Localization/EventOrganizer/en.json` in the `EventOrganizer.Domain.Shared` project and add the following entry:
+  namespace Prabh.Finance;
 
-```json
-"CreateEvent": "Create a new event!"
-```
+  [DependsOn(
+      // Code remove for brevity
+      typeof(StockHttpApiClientModule)
+  )]
+  public class FinanceHttpApiClientModule : AbpModule
+  {
+      // Code remove for brevity
+  }
+  ```
+
+- You can now access the **Stock APIs** from within the **Finance UI**
+- Similar changes are required to integrate the **News API**
 
 The Result (run the `EventOrganizer.Blazor` application to see):
 
-![index-title](images/index-title.png)
+### `Prabh Finance` Consume APIs from Stock and News to combine the Data.
 
-### Event Creation
+- Open `Index.Razor.cs` inside Pages of `Prabh.Finance.Blazor.Client` and change to something like this.
 
-- Create the Initial `IEventAppService` with the `CreateAsync` method:
+  ```csharp
+    using Blazorise;
+    using Microsoft.AspNetCore.Components;
+    using Prabh.News.Books;
+    using Prabh.Stock.Books;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Volo.Abp.AspNetCore.Components.Alerts;
 
-```csharp
-using System;
-using System.Threading.Tasks;
-using Volo.Abp.Application.Services;
+    namespace Prabh.Finance.Blazor.Client.Pages;
 
-namespace EventOrganizer.Events
-{
-    public interface IEventAppService : IApplicationService
+
+    public record LatestStockNews(string Ticker, string CompanyName, decimal CurrentPrice, string Summary);
+
+
+    public partial class Index
     {
-        Task<Guid> CreateAsync(EventCreationDto input);
-    }
-}
-```
 
-- Add `EventCreationDto` class:
+        [Inject] public IStockAppService StockAppService_HTTP { get; set; }
 
-```csharp
-using System;
-using System.ComponentModel.DataAnnotations;
+        [Inject] public INewsAppService NewsAppService_HTTP { get; set; }
 
-namespace EventOrganizer.Events
-{
-    public class EventCreationDto
-    {
-        [Required]
-        [StringLength(100)]
-        public string Title { get; set; }
+        [Inject]  IMessageService MessageService { get; set; }
 
-        [Required]
-        [StringLength(2000)]
-        public string Description { get; set; }
 
-        public bool IsFree { get; set; }
-
-        public DateTime StartTime { get; set; }
-    }
-}
-```
-
-- Implement the `EventAppService`:
-
-```csharp
-using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Volo.Abp.Domain.Repositories;
-
-namespace EventOrganizer.Events
-{
-    public class EventAppService : EventOrganizerAppService, IEventAppService
-    {
-        private readonly IRepository<Event, Guid> _eventRepository;
-
-        public EventAppService(IRepository<Event, Guid> eventRepository)
+        private List<LatestStockNews> LatestStockNews = [];
+        protected override async Task OnInitializedAsync()
         {
-            _eventRepository = eventRepository;
-        }
+            await base.OnInitializedAsync();
 
-        [Authorize]
-        public async Task<Guid> CreateAsync(EventCreationDto input)
-        {
-            var eventEntity = ObjectMapper.Map<EventCreationDto, Event>(input);
-            await _eventRepository.InsertAsync(eventEntity);
-            return eventEntity.Id;
+            try
+            {
+                var stockResponse = await StockAppService_HTTP.GetThisMonthTopStocksAsync();
+                var newsResponse = await NewsAppService_HTTP.GetTopMonthlyNewsAsync();
+
+                LatestStockNews = [.. from s in stockResponse.Items.ToList()
+                                              join n in newsResponse.Items.ToList() on s.Ticker equals n.Ticker
+                                              select new LatestStockNews(s.Ticker, s.CompanyName, s.CurrentPrice, n.Summary)];
+            }
+            catch (System.Exception ex)
+            {
+                //This is just to mange eror If any external apis are not working or not reachable.
+                MessageService?.Error("Error calling Stock Or New APis. See Console for me error");
+                Console.WriteLine(ex.Message ?? ex.InnerException.Message);
+            }
         }
     }
-}
-```
 
-- Add AutoMapper mapping to the `EventOrganizerApplicationAutoMapperProfile` class:
+  ```
 
-```csharp
-using AutoMapper;
-using EventOrganizer.Events;
+- Open `Index.Razor.cs` inside Pages of `Prabh.Finance.Blazor.Client` and change to something like this.
+  ```html
+  @page "/" @inherits EventOrganizerComponentBase
+  ```
 
-namespace EventOrganizer
-{
-    public class EventOrganizerApplicationAutoMapperProfile : Profile
-    {
-        public EventOrganizerApplicationAutoMapperProfile()
-        {
-            CreateMap<EventCreationDto, Event>();
-        }
-    }
-}
-```
+#### Still getting error Maybe this one
 
-This will automatically create the HTTP (REST) API for the application service (run the `EventOrganizer.HttpApi.Host` application to see it on the Swagger UI):
+![alt text](images/cors-error.png)
 
-![swagger-event-create](images/swagger-event-create.png)
+- There is one thing left to change in Stock API and News API we are only accepting http request from certain UI. Do something like this accept HTTP request from `Prabh Finance UI` in appsettings of below projects and restart them
 
-- Create the `CreateEvent.razor` file:
+  - `Prabh.Stock.HttpApi.Host`
+  - `Prabh.News.HttpApi.Host`
 
-```csharp
-@page "/create-event"
-@inherits EventOrganizerComponentBase
-<Heading Size="HeadingSize.Is3" Margin="Margin.Is5.FromTop.Is4.FromBottom" Class="text-center">Create Event</Heading>
-<Row>
-    <Column ColumnSize="ColumnSize.Is6.Is3.WithOffset">
-        <div class="p-lg-5 p-md-3 event-form">
-            <EditForm Model="@Event" OnValidSubmit="Create">
-                <Field>
-                    <FieldLabel>@L["Title"]</FieldLabel>
-                    <TextEdit @bind-Text="@Event.Title" />
-                </Field>
-                <Field>
-                    <FieldLabel>@L["Description"]</FieldLabel>
-                    <MemoEdit @bind-Text="@Event.Description" />
-                </Field>
-                <Field>
-                    <Check TValue="bool" @bind-Checked="@Event.IsFree">@L["Free"]</Check>
-                </Field>
-                <Field>
-                    <FieldLabel>@L["StartTime"]</FieldLabel>
-                    <DateEdit TValue="DateTime" @bind-Date="@Event.StartTime" />
-                </Field>
-                <Button Type="@ButtonType.Submit" Block="true" Color="@Color.Primary" Size="Size.Large">@L["Save"]</Button>
-            </EditForm>
-        </div>
-    </Column>
-</Row>
-```
-
-- Create a partial `CreateEvent` class in the same folder, with the `CreateEvent.razor.cs` as the file name:
-
-```csharp
-using System.Threading.Tasks;
-using EventOrganizer.Events;
-using Microsoft.AspNetCore.Components;
-
-namespace EventOrganizer.Blazor.Pages
-{
-    public partial class CreateEvent
-    {
-        private EventCreationDto Event { get; set; } = new EventCreationDto();
-
-        private readonly IEventAppService _eventAppService;
-        private readonly NavigationManager _navigationManager;
-
-        public CreateEvent(
-            IEventAppService eventAppService,
-            NavigationManager navigationManager)
-        {
-            _eventAppService = eventAppService;
-            _navigationManager = navigationManager;
-        }
-
-        private async Task Create()
-        {
-            var eventId = await _eventAppService.CreateAsync(Event);
-            _navigationManager.NavigateTo("/events/" + eventId);
-        }
-    }
-}
-```
-
-The final UI is (run the `EventOrganizer.Blazor` application and click to the "Create Event" button):
+  ![alt text](images/cors-appsetting.png)
 
 ![event-create-ui](images/event-create-ui.png)
 
-### Upcoming Events (Home Page)
-
-- Open the `IEventAppService` and add a `GetUpcomingAsync` method to get the list of upcoming events:
-
-```csharp
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Volo.Abp.Application.Services;
-
-namespace EventOrganizer.Events
-{
-    public interface IEventAppService : IApplicationService
-    {
-        Task<Guid> CreateAsync(EventCreationDto input);
-
-        Task<List<EventDto>> GetUpcomingAsync();
-    }
-}
-```
-
-- Add a `EventDto` class:
-
-```csharp
-using System;
-using Volo.Abp.Application.Dtos;
-
-namespace EventOrganizer.Events
-{
-    public class EventDto : EntityDto<Guid>
-    {
-        public string Title { get; set; }
-
-        public string Description { get; set; }
-
-        public bool IsFree { get; set; }
-
-        public DateTime StartTime { get; set; }
-
-        public int AttendeesCount { get; set; }
-    }
-}
-```
-
-- Implement the `GetUpcomingAsync` in the `EventAppService` class:
-
-```csharp
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Volo.Abp.Domain.Repositories;
-
-namespace EventOrganizer.Events
-{
-    public class EventAppService : EventOrganizerAppService, IEventAppService
-    {
-        private readonly IRepository<Event, Guid> _eventRepository;
-
-        public EventAppService(IRepository<Event, Guid> eventRepository)
-        {
-            _eventRepository = eventRepository;
-        }
-
-        [Authorize]
-        public async Task<Guid> CreateAsync(EventCreationDto input)
-        {
-            var eventEntity = ObjectMapper.Map<EventCreationDto, Event>(input);
-            await _eventRepository.InsertAsync(eventEntity);
-            return eventEntity.Id;
-        }
-
-        public async Task<List<EventDto>> GetUpcomingAsync()
-        {
-            var queryable = await _eventRepository.GetQueryableAsync();
-            var query = queryable
-                .Where(x => x.StartTime > Clock.Now)
-                .OrderBy(x => x.StartTime);
-
-            var events = await AsyncExecuter.ToListAsync(query);
-
-            return ObjectMapper.Map<List<Event>, List<EventDto>>(events);
-        }
-    }
-}
-```
-
-- Add the following line into the `EventOrganizerApplicationAutoMapperProfile` constructor:
-
-```csharp
-CreateMap<Event, EventDto>();
-```
-
-Run the `EventOrganizer.HttpApi.Host` application to see the new `upcoming` endpoint on the Swagger UI:
-
-![swagger-event-upcoming](images/swagger-event-upcoming.png)
-
-- Change the `Pages/Index.razor.cs` content in the `EventOrganizer.Blazor` project as shown below:
-
-```csharp
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using EventOrganizer.Events;
-
-namespace EventOrganizer.Blazor.Pages
-{
-    public partial class Index
-    {
-        private List<EventDto> UpcomingEvents { get; set; } = new List<EventDto>();
-
-        private readonly IEventAppService _eventAppService;
-
-        public Index(IEventAppService eventAppService)
-        {
-            _eventAppService = eventAppService;
-        }
-
-        protected override async Task OnInitializedAsync()
-        {
-            UpcomingEvents = await _eventAppService.GetUpcomingAsync();
-        }
-    }
-}
-```
+The Result (run the `EventOrganizer.Blazor` application to see):
 
 - Change the `Pages/Index.razor` content in the `EventOrganizer.Blazor` project as shown below:
 
-```html
-@page "/" @inherits EventOrganizerComponentBase
-<Row Class="mb-4">
-  <Column Class="text-left">
-    <h1>Upcoming Events</h1>
-  </Column>
-  <Column Class="text-right">
-    @if (CurrentUser.IsAuthenticated) {
-    <a class="btn btn-primary" href="/create-event">
-      <i class="fa fa-plus"></i> @L["CreateEvent"]
-    </a>
-    }
-  </Column>
-</Row>
-<Row>
-  @foreach (var upcomingEvent in UpcomingEvents) {
-  <Column Class="col-12 col-lg-4 col-md-6">
-    <a
-      class="mb-5 position-relative d-block event-link"
-      href="/events/@upcomingEvent.Id"
-    >
-      <div
-        class="position-absolute text-right w-100 px-3 py-2"
-        style="left: 0; top: 2px;"
-      >
-        @if (upcomingEvent.IsFree) {
-        <Badge Color="Color.Success" Class="mr-1">FREE</Badge>
-        }
-        <span class="badge badge-warning font-weight-normal">
-          <i class="fas fa-user-friends"></i>
-          <span class="font-weight-bold">@upcomingEvent.AttendeesCount</span>
-        </span>
-      </div>
-      <img
-        src="https://picsum.photos/seed/@upcomingEvent.Id/400/300"
-        class="event-pic"
-      />
-      <div class="px-3 py-1">
-        <small class="font-weight-bold text-warning my-2 d-block text-uppercase"
-          >@upcomingEvent.StartTime.ToLongDateString()</small
-        >
-        <p class="h4 text-light d-block mb-2">@upcomingEvent.Title</p>
-        <p class="text-light" style="opacity: .65;">
-          @upcomingEvent.Description.TruncateWithPostfix(150)
-        </p>
-      </div>
-    </a>
-  </Column>
-  }
-</Row>
-```
+Run the `EventOrganizer.HttpApi.Host` application to see the new `upcoming` endpoint on the Swagger UI:
 
 The new home page is shown below:
 
 ![event-list-ui](images/event-list-ui.png)
-
-### Event Detail Page
-
-- Add `GetAsync`, `RegisterAsync`, `UnregisterAsync` and `DeleteAsync` methods to the `IEventAppService`:
-
-```csharp
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Volo.Abp.Application.Services;
-
-namespace EventOrganizer.Events
-{
-    public interface IEventAppService : IApplicationService
-    {
-        Task<Guid> CreateAsync(EventCreationDto input);
-
-        Task<List<EventDto>> GetUpcomingAsync();
-
-        Task<EventDetailDto> GetAsync(Guid id);
-
-        Task RegisterAsync(Guid id);
-
-        Task UnregisterAsync(Guid id);
-
-        Task DeleteAsync(Guid id);
-    }
-}
-```
-
-- Add `EventDetailDto` class:
-
-```csharp
-using System;
-using System.Collections.Generic;
-using Volo.Abp.Application.Dtos;
-
-namespace EventOrganizer.Events
-{
-    public class EventDetailDto : CreationAuditedEntityDto<Guid>
-    {
-        public string Title { get; set; }
-
-        public string Description { get; set; }
-
-        public bool IsFree { get; set; }
-
-        public DateTime StartTime { get; set; }
-
-        public List<EventAttendeeDto> Attendees { get; set; }
-    }
-}
-```
-
-- Add `EventAttendeeDto` class:
-
-```csharp
-using System;
-
-namespace EventOrganizer.Events
-{
-    public class EventAttendeeDto
-    {
-        public Guid UserId { get; set; }
-
-        public string UserName { get; set; }
-
-        public DateTime CreationTime { get; set; }
-    }
-}
-```
-
-- Implement the new methods in the `EventAppService`:
-
-```csharp
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EventOrganizer.Users;
-using Microsoft.AspNetCore.Authorization;
-using Volo.Abp;
-using Volo.Abp.Domain.Repositories;
-using Volo.Abp.Users;
-
-namespace EventOrganizer.Events
-{
-    public class EventAppService : EventOrganizerAppService, IEventAppService
-    {
-        private readonly IRepository<Event, Guid> _eventRepository;
-        private readonly IRepository<AppUser, Guid> _userRepository;
-
-        public EventAppService(IRepository<Event, Guid> eventRepository, IRepository<AppUser, Guid> userRepository)
-        {
-            _eventRepository = eventRepository;
-            _userRepository = userRepository;
-        }
-
-        [Authorize]
-        public async Task<Guid> CreateAsync(EventCreationDto input)
-        {
-            var eventEntity = ObjectMapper.Map<EventCreationDto, Event>(input);
-            await _eventRepository.InsertAsync(eventEntity);
-            return eventEntity.Id;
-        }
-
-        public async Task<List<EventDto>> GetUpcomingAsync()
-        {
-            var queryable = await _eventRepository.GetQueryableAsync();
-            var query = queryable
-                .Where(x => x.StartTime > Clock.Now)
-                .OrderBy(x => x.StartTime);
-
-            var events = await AsyncExecuter.ToListAsync(query);
-
-            return ObjectMapper.Map<List<Event>, List<EventDto>>(events);
-        }
-
-        public async Task<EventDetailDto> GetAsync(Guid id)
-        {
-            var @event = await _eventRepository.GetAsync(id);
-            var attendeeIds = @event.Attendees.Select(a => a.UserId).ToList();
-
-            var queryable = await _userRepository.GetQueryableAsync();
-            var query = queryable
-                .Where(u => attendeeIds.Contains(u.Id));
-
-            var attendees = (await AsyncExecuter.ToListAsync(query))
-                .ToDictionary(x => x.Id);
-
-            var result = ObjectMapper.Map<Event, EventDetailDto>(@event);
-
-            foreach (var attendeeDto in result.Attendees)
-            {
-                attendeeDto.UserName = attendees[attendeeDto.UserId].UserName;
-            }
-
-            return result;
-        }
-
-        [Authorize]
-        public async Task RegisterAsync(Guid id)
-        {
-            var @event = await _eventRepository.GetAsync(id);
-            if (@event.Attendees.Any(a => a.UserId == CurrentUser.Id))
-            {
-                return;
-            }
-
-            @event.Attendees.Add(new EventAttendee {UserId = CurrentUser.GetId(), CreationTime = Clock.Now});
-            await _eventRepository.UpdateAsync(@event);
-        }
-
-        [Authorize]
-        public async Task UnregisterAsync(Guid id)
-        {
-            var @event = await _eventRepository.GetAsync(id);
-            var removedItems = @event.Attendees.RemoveAll(x => x.UserId == CurrentUser.Id);
-            if (removedItems.Any())
-            {
-                await _eventRepository.UpdateAsync(@event);
-            }
-        }
-
-        [Authorize]
-        public async Task DeleteAsync(Guid id)
-        {
-            var @event = await _eventRepository.GetAsync(id);
-
-            if (CurrentUser.Id != @event.CreatorId)
-            {
-                throw new UserFriendlyException("You don't have the necessary permission to delete this event!");
-            }
-
-            await _eventRepository.DeleteAsync(id);
-        }
-    }
-}
-```
-
-- Add the following mappings into the `EventOrganizerApplicationAutoMapperProfile`:
-
-```csharp
-CreateMap<Event, EventDetailDto>();
-CreateMap<EventAttendee, EventAttendeeDto>();
-```
 
 Run the `EventOrganizer.HttpApi.Host` application to see the complete Event HTTP API in the Swagger UI:
 
@@ -746,213 +231,34 @@ Run the `EventOrganizer.HttpApi.Host` application to see the complete Event HTTP
 - Create `EventDetail.razor` component with the following content:
 
 ```html
-@page "/events/{id}" @inherits EventOrganizerComponentBase @if (Event != null) {
-<Row Class="mb-4">
-  <Column Class="text-left">
-    <h1>@Event.Title</h1>
-  </Column>
-  <Column Class="text-right pt-2">
-    <a href="/" class="btn btn-dark"><i class="fa fa-arrow-left"></i> Back</a>
-    @if (CurrentUser.IsAuthenticated && CurrentUser.Id == Event.CreatorId) {
-    <button Color="Color.Danger" Clicked="Delete" class="ml-1">Delete</button>
-    }
-  </Column>
-</Row>
-<Row>
-  <Column Class="col-12 col-md-8">
-    <div class="position-relative">
-      <div
-        class="position-absolute text-right w-100 px-3 py-2"
-        style="left: 0; top: 2px;"
-      >
-        @if (Event.IsFree) {
-        <Badge Color="Color.Success" Class="mr-1">FREE</Badge>
-        }
-        <span class="badge badge-warning font-weight-normal">
-          <i class="fas fa-user-friends"></i>
-          <span class="font-weight-bold">@Event.Attendees.Count</span>
-        </span>
-      </div>
-      <img
-        src="https://picsum.photos/seed/@Event.Id/800/600"
-        class="event-pic"
-      />
-      <small class="font-weight-bold text-warning my-2 d-block text-uppercase"
-        >Start time: @Event.StartTime.ToLongDateString()</small
-      >
-      <p style="opacity: .65;">@Event.Description</p>
-    </div>
-  </Column>
-  <Column Class="col-12 col-md-4">
-    <div class="p-4 event-form">
-      @if (CurrentUser.IsAuthenticated) {
-      <div>
-        @if (!IsRegistered) {
-        <button
-          Color="Color.Primary"
-          Clicked="Register"
-          class="btn-block btn-lg"
-        >
-          Register now!
-        </button>
-        } else {
-        <p>You are registered in this event</p>
-        <button Color="Color.Secondary" Clicked="UnRegister" class="btn-block">
-          Cancel registration!
-        </button>
-        }
-      </div>
-      } else {
-      <a class="btn btn-primary" href="/authentication/login">
-        <i class="fa fa-sign-in-alt"></i> Login to attend!
-      </a>
-      }
-    </div>
-    <div class="mt-4 event-form p-4">
-      <span class="font-weight-bold"
-        ><i class="fas fa-user-friends"></i> Attendees
-        <span class="float-right font-weight-normal" style="opacity:.65;"
-          >(@Event.Attendees.Count)</span
-        ></span
-      >
-      <ul class="mt-1 mb-0 att-list">
-        @foreach (var attendee in Event.Attendees) {
-        <li><i class="fa fa-check"></i> @attendee.UserName</li>
-        }
-      </ul>
-    </div>
-  </Column>
-</Row>
-}
+
 ```
 
 - Create `EventDetail.razor.cs` file with the following content:
 
 ```csharp
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using EventOrganizer.Events;
-using Microsoft.AspNetCore.Components;
 
-namespace EventOrganizer.Blazor.Pages
-{
-    public partial class EventDetail
-    {
-        [Parameter]
-        public string Id { get; set; }
-
-        private EventDetailDto Event { get; set; }
-        private bool IsRegistered { get; set; }
-
-        private readonly IEventAppService _eventAppService;
-        private readonly NavigationManager _navigationManager;
-
-        public EventDetail(
-            IEventAppService eventAppService,
-            NavigationManager navigationManager)
-        {
-            _eventAppService = eventAppService;
-            _navigationManager = navigationManager;
-        }
-
-        protected override async Task OnInitializedAsync()
-        {
-            await GetEventAsync();
-        }
-
-        private async Task GetEventAsync()
-        {
-            Event = await _eventAppService.GetAsync(Guid.Parse(Id));
-            if (CurrentUser.IsAuthenticated)
-            {
-                IsRegistered = Event.Attendees.Any(a => a.UserId == CurrentUser.Id);
-            }
-        }
-
-        private async Task Register()
-        {
-            await _eventAppService.RegisterAsync(Guid.Parse(Id));
-            await GetEventAsync();
-        }
-
-        private async Task UnRegister()
-        {
-            await _eventAppService.UnregisterAsync(Guid.Parse(Id));
-            await GetEventAsync();
-        }
-
-        private async Task Delete()
-        {
-            if (!await Message.Confirm("This event will be deleted: " + Event.Title))
-            {
-                return;
-            }
-
-            await _eventAppService.DeleteAsync(Guid.Parse(Id));
-            _navigationManager.NavigateTo("/");
-        }
-    }
-}
 ```
 
 The resulting page is shown below:
 
-![event-detail-ui](images/event-detail-ui.png)
+![final result prabh finance page](images/final-result.png)
 
 ### Integration Tests
 
 Create an `EventAppService_Tests` class in the `EventOrganizer.Application.Tests` project:
 
 ```csharp
-using System;
-using System.Threading.Tasks;
-using Shouldly;
-using Xunit;
 
-namespace EventOrganizer.Events
-{
-    [Collection(EventOrganizerTestConsts.CollectionDefinitionName)]
-    public class EventAppService_Tests : EventOrganizerApplicationTestBase
-    {
-        private readonly IEventAppService _eventAppService;
-
-        public EventAppService_Tests()
-        {
-            _eventAppService = GetRequiredService<IEventAppService>();
-        }
-
-        [Fact]
-        public async Task Should_Create_A_Valid_Event()
-        {
-            // Create an event
-
-            var eventId = await _eventAppService.CreateAsync(
-                new EventCreationDto
-                {
-                    Title = "My test event 1",
-                    Description = "My test event description 1",
-                    IsFree = true,
-                    StartTime = DateTime.Now.AddDays(2)
-                }
-            );
-
-            eventId.ShouldNotBe(Guid.Empty);
-
-            // Get the event
-
-            var @event = await _eventAppService.GetAsync(eventId);
-            @event.Title.ShouldBe("My test event 1");
-
-            // Get upcoming events
-
-            var events = await _eventAppService.GetUpcomingAsync();
-            events.ShouldContain(x => x.Title == "My test event 1");
-        }
-    }
-}
 ```
 
 ## Source Code
 
-Source code of the completed application is [available on GitHub](https://github.com/abpframework/abp-samples/tree/master/EventOrganizer).
+Source code of the this completed post is [available on GitHub](https://github.com/008programmer/abp-multiple-apps-communication-and-restructuring/tree/1-consume-other-apps-api-using-clients).
+
+## Others Errors
+
+- Refernce and Abp Clean
+- Cors
+
+- Why Usage fo Graphbuild
