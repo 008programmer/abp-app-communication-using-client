@@ -9,13 +9,14 @@ We are working with three primary applications:
 - `Prabh.News` – Handles market news and updates
 - `Prabh.Finance` – Aggregates financial data, integrating both stock and news insights
 
-In this article, we’ll simplify running one or more applications simultaneously by introducing a new .slnx solution file at the root level. We’ll add all related projects into it using Visual Studio and organize them into solution folders for better maintainability.
+In this article, we’ll demonstrate how to enable Prabh.Finance to call the backends of Prabh.News and Prabh.Stock by adding their HttpApi.Client projects as references.
 
 These applications use `Blazor` for the UI layer and `PostgreSQL` as the database provider.
 
 ### 💻 Source Code
 
 Source code of the this completed post is [available on GitHub](https://github.com/008programmer/abp-multiple-apps-communication-and-restructuring/tree/2-manage-complexity-by-new-slnx).
+ddd
 
 ### 🖼️ Screenshots
 
