@@ -3,33 +3,33 @@
 ## Introduction
 
 This post is part of my <i>`Managing Communication and Restructring blazor UI in ABP Multi-App`</i>.
-The Three Application primarly used are
+We are working with three primary applications:
 
-- base app Prabh.Stock that manages stock related stuff things
-- base app Prabh.Stock that manages market news related stuff
-- Prabh.Stock that manages market news related stuff
+- `Prabh.Stock` – Manages stock-related functionality
+- `Prabh.News` – Handles market news and updates
+- `Prabh.Finance` – Aggregates financial data, integrating both stock and news insights
 
-In this article, we will manage to call Prabh.News and Prabh.Stocks backends by adding their HttpApi.Clients as project refernce to Prabh.Finance
+In this article, we’ll simplify running one or more applications simultaneously by introducing a new .slnx solution file at the root level. We’ll add all related projects into it using Visual Studio and organize them into solution folders for better maintainability.
 
-These application has been developed with **Blazor** as the UI framework and **postgresql** as the database provider.
+These applications use `Blazor` for the UI layer and `PostgreSQL` as the database provider.
 
-### Source Code
+### 💻 Source Code
 
-Source code of the this completed post is [available on GitHub](https://github.com/008programmer/abp-multiple-apps-communication-and-restructuring/tree/1-consume-other-apps-api-using-clients).
+Source code of the this completed post is [available on GitHub](https://github.com/008programmer/abp-multiple-apps-communication-and-restructuring/tree/2-manage-complexity-by-new-slnx).
 
-### Screenshots
+### 🖼️ Screenshots
 
 Here, the applications screenshot of all three applications.
 
-**Home Page - Prabh.Stock**
+**Prabh.Stock**
 
 ![prabh-stock-ui](images/prabh.stocks.png)
 
-**Home Page - Prabh.News**
+**Prabh.News**
 
 ![prabh-news-ui](images/prabh.news.png)
 
-**Home Page - Prabh.Finance**
+**Prabh.Finance**
 
 ![prabh-finance-ui](images/prabh.finance.png)
 
@@ -144,7 +144,7 @@ Troubleshooting tip
 - You can now access the **Stock APIs** from within the **Finance UI**
 - Similar changes are required to integrate the **News API**
 
-### 🔗 `Prabh Finance` Consume APIs from Stock and News to combine the Data.
+### 🔗 `Prabh Finance Blazor` Consume APIs from Stock and News to combine the Data.
 
 - Open `Index.Razor.cs` inside Pages of `Prabh.Finance.Blazor.Client` and change to something like this.
 
@@ -257,8 +257,6 @@ Troubleshooting tip
 
 Run the `EventOrganizer.HttpApi.Host` application to see the new `upcoming` endpoint on the Swagger UI:
 
-The resulting page is shown below:
-
 ## 🔌 Run & Results
 
 - Run these project
@@ -275,6 +273,7 @@ Source code of the this completed post is [available on GitHub](https://github.c
 
 ## Next
 
-- While we are able to access `Stock API` and `News API` from `Finance UI`, But we found out that the process to run all four applications are quite complex.
+- While we are able to access `Stock API` and `News API` from `Finance UI`, But we found out that the process to run all four applications are quite complex and separated.
 
-- So, Our Next post is going to be 'Integrating `Prabh Finance UI` and APIs from Multiple ABP Applications into a new Solution' (Coming Soon\*)
+- So, Our Next post is going to be 'Adopting the new .slnx format to organize applications and services in a streamlined solution' and is
+  [available on GitHub](https://github.com/008programmer/abp-multiple-apps-communication-and-restructuring/tree/2-manage-complexity-by-new-slnx)
