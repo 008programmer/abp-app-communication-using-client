@@ -1,35 +1,35 @@
-# 1- Accessing Multiple Remote ABP based Backends Using HttpApi.Client
+# 1- Understanding and adopting the new .slnx format to organize applications and services in a streamlined solution
 
 ## Introduction
 
 This post is part of my <i>`Managing Communication and Restructring blazor UI in ABP Multi-App`</i>.
-The Three Application primarly used are
+We are working with three primary applications:
 
-- base app Prabh.Stock that manages stock related stuff things
-- base app Prabh.Stock that manages market news related stuff
-- Prabh.Stock that manages market news related stuff
+- `Prabh.Stock` – Manages stock-related functionality
+- `Prabh.News` – Handles market news and updates
+- `Prabh.Finance` – Aggregates financial data, integrating both stock and news insights
 
-In this article, we will manage to call Prabh.News and Prabh.Stocks backends by adding their HttpApi.Clients as project refernce to Prabh.Finance
+In this article, we’ll simplify running one or more applications simultaneously by introducing a new .slnx solution file at the root level. We’ll add all related projects into it using Visual Studio and organize them into solution folders for better maintainability.
 
-These application has been developed with **Blazor** as the UI framework and **postgresql** as the database provider.
+These applications use `Blazor` for the UI layer and `PostgreSQL` as the database provider.
 
-### Source Code
+### 💻 Source Code
 
 Source code of the this completed post is [available on GitHub](https://github.com/008programmer/abp-multiple-apps-communication-and-restructuring/tree/1-consume-other-apps-api-using-clients).
 
-### Screenshots
+### 🖼️ Screenshots
 
 Here, the applications screenshot of all three applications.
 
-**Home Page - Prabh.Stock**
+**Prabh.Stock**
 
 ![prabh-stock-ui](images/prabh.stocks.png)
 
-**Home Page - Prabh.News**
+**Prabh.News**
 
 ![prabh-news-ui](images/prabh.news.png)
 
-**Home Page - Prabh.Finance**
+**Prabh.Finance**
 
 ![prabh-finance-ui](images/prabh.finance.png)
 
@@ -45,7 +45,7 @@ Troubleshooting tip
 
 - If you try to run more than one ABP application's UI at the same time through visual studio, you might encounter issues while running. A simple workaround is to open the second application in a different browser.
 
-## Setup
+## ⚙️ Setup
 
 ### Open & Run the Application
 
@@ -58,216 +58,41 @@ Troubleshooting tip
 
 ## Development
 
-### 🆕 `Prabh Stock Application` Changes
+### 🆕 Add a new Sln file by adding typing `dotnet new sln -n Prabh.Apps` in the root directory
 
-- Update Remote Service Name for Stock API
+- Add a empty solution name 'Prabh.Apps' in the root directory
 
-  - Open the `Prabh.Stock.HttpApi.Client` project and update the name of the Stock application's backend remote service to `Stock`.
-    ```csharp
-    public const string RemoteServiceName = "Default";
-    //change to
-    public const string RemoteServiceName = "Stock";
-    ```
+  ![alt text](image.png)
 
-- Decouple and Add new value in Remote Service for Stock API
+- Ok Here is the Twist, dotnet has introduced a new compact & clean format slnx format. so lets migrate to it by typing `dotnet sln migrate`.
+  ![alt text](image-1.png)
 
-  - Add a new `Stock` property with the same URL as `Default` in `appsettings`.
+- Here is the format of new slnx
+  ![alt text](image-5.png)
 
-    This change is part of our effort to decouple our APIs from the pre-existing backend APIs (such as `Accounts`, `tenant`,`localization`, etc.).
+- Now open the visual studio using this new `Prabh.Apps.slnx`
+- Then Right click and go to `Add` -> `New Solution Folder`
 
-    ### Going forward:
+![alt text](image-2.png)
 
-  - The **Stock UI** and any third party(`e.g. Prabh Finance UI`) will use the `Stock` prop URL to communicate with APIs developed by us.
-  - The **Stock UI** will use the `Default` prop URL to communicate with APIs developed by abp and attached to our backend.
+- Right click on solution folder and add existing project.
 
-    ```json
-    "RemoteServices": {
-      "Default": {
-        "BaseUrl": "https://localhost:44354"
-      },
-      "AbpAccountPublic": {
-        "BaseUrl": "https://localhost:44354"
-      }
-    }
-    //add a new prop named Stock
-    "RemoteServices": {
-      "Default": {
-        "BaseUrl": "https://localhost:44354"
-      },
-      "Stock": {
-        "BaseUrl": "https://localhost:44354"
-      },
-      "AbpAccountPublic": {
-        "BaseUrl": "https://localhost:44354"
-      }
-    },
-    ```
+![alt text](image-3.png)
 
-    similar type of changes is needed for `News API`
+## 🔌 Run multiple apps
 
-### 🆕 `Prabh Finance Application` Changes
+- Right click in solution and click `Multiple startup projects` and select these project
 
-- Open the **Prabh Finance Application** solution in Visual Studio (or your preferred IDE).
-- In the `Prabh.Finance.HttpApi.Client` project, add project references to:
-
-  - `Prabh.Stock.HttpApi.Client`
-  - `Prabh.News.HttpApi.Client`
-    ```
-      <ProjectReference Include="..\..\..\Prabh.Stock\src\Prabh.Stock.HttpApi.Client\Prabh.Stock.HttpApi.Client.csproj" />
-      <ProjectReference Include="..\..\..\Prabh.News\src\Prabh.News.HttpApi.Client\Prabh.News.HttpApi.Client.csproj" />
-    ```
-
-- Sometimes Visual Studio does show a error related to reference. If you encounter this issue, run the following command in the terminal to resolve it and restart visual studio
-
-  ```cmd
-  dotnet restore or dotnet build /graphbuild
-  ```
-
-- Open `FinanceHttpApiClientModule` module and add `StockHttpApiClientModule` in the DependsOn(a beauty of ABP modularity)
-
-  ```csharp
-  using Prabh.Stock;
-  using Prabh.News;
-
-  namespace Prabh.Finance;
-
-  [DependsOn(
-      // Code remove for brevity
-      typeof(StockHttpApiClientModule)
-  )]
-  public class FinanceHttpApiClientModule : AbpModule
-  {
-      // Code remove for brevity
-  }
-  ```
-
-- You can now access the **Stock APIs** from within the **Finance UI**
-- Similar changes are required to integrate the **News API**
-
-### 🔗 `Prabh Finance` Consume APIs from Stock and News to combine the Data.
-
-- Open `Index.Razor.cs` inside Pages of `Prabh.Finance.Blazor.Client` and change to something like this.
-
-  ```csharp
-    using Blazorise;
-    using Microsoft.AspNetCore.Components;
-    using Prabh.News.Books;
-    using Prabh.Stock.Books;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Volo.Abp.AspNetCore.Components.Alerts;
-
-    namespace Prabh.Finance.Blazor.Client.Pages;
-
-
-    public record LatestStockNews(string Ticker, string CompanyName, decimal CurrentPrice, string Summary);
-
-
-    public partial class Index
-    {
-
-        [Inject] public IStockAppService StockAppService_HTTP { get; set; }
-
-        [Inject] public INewsAppService NewsAppService_HTTP { get; set; }
-
-        [Inject]  IMessageService MessageService { get; set; }
-
-
-        private List<LatestStockNews> LatestStockNews = [];
-        protected override async Task OnInitializedAsync()
-        {
-            await base.OnInitializedAsync();
-
-            try
-            {
-                var stockResponse = await StockAppService_HTTP.GetThisMonthTopStocksAsync();
-                var newsResponse = await NewsAppService_HTTP.GetTopMonthlyNewsAsync();
-
-                LatestStockNews = [.. from s in stockResponse.Items.ToList()
-                                              join n in newsResponse.Items.ToList() on s.Ticker equals n.Ticker
-                                              select new LatestStockNews(s.Ticker, s.CompanyName, s.CurrentPrice, n.Summary)];
-            }
-            catch (System.Exception ex)
-            {
-                //This is just to mange eror If any external apis are not working or not reachable.
-                MessageService?.Error("Error calling Stock Or New APis. See Console for me error");
-                Console.WriteLine(ex.Message ?? ex.InnerException.Message);
-            }
-        }
-    }
-
-  ```
-
-- Open `Index.Razor.cs` inside Pages of `Prabh.Finance.Blazor.Client` and change to something like this.
-
-  ```html
-  <div class="card-body f">
-    <div class="starting-content pe-5" style="position:static !important">
-      <h1 class="f3">Prabh <strong class="c">Finance</strong> Website</h1>
-      <p>💕💕 Utlimate Solution for Finance Management</p>
-
-      <div>
-        @if (LatestStockNews.Count > 0) {
-        <CardDeck>
-          @foreach (var item in LatestStockNews) {
-          <Card Background="Background.Success" WhiteText>
-            <CardBody>
-              <CardTitle Size="5">
-                <div class="d-flex justify-content-between">
-                  <div>@item.CompanyName</div>
-                  <div>$ @item.CurrentPrice</div>
-                </div>
-              </CardTitle>
-
-              <CardText> @item.Summary </CardText>
-            </CardBody>
-          </Card>
-          }
-        </CardDeck>
-        } else {
-        <Callout Color="CalloutColor.Danger" HideHeading="true">
-          <h4>Something is Wrong</h4>
-          <p>
-            No stock news could be loaded. Please check with your admin or try
-            again later.
-          </p>
-        </Callout>
-        }
-      </div>
-    </div>
-  </div>
-  ```
-
-## ⚠️ Wait! `CORS` Still Needs to Be Configured
-
-- One final change is needed in the `Stock API` and `News API`: currently, these services only accept HTTP requests from specific UI/Domain.
-
-  ![alt text](images/cors-error.png)
-
-  Please update the appsettings.json of both projects to allow requests from Prabh Finance UI, then restart the applications.
-
-  - `Prabh.Stock.HttpApi.Host`
-  - `Prabh.News.HttpApi.Host`
-
-  ![alt text](images/cors-appsetting.png)
-
-- Change the `Pages/Index.razor` content in the `EventOrganizer.Blazor` project as shown below:
-
-Run the `EventOrganizer.HttpApi.Host` application to see the new `upcoming` endpoint on the Swagger UI:
-
-The resulting page is shown below:
-
-## 🔌 Run & Results
-
-- Run these project
   - `Prabh.Stock.HttpApi.Host`
   - `Prabh.News.HttpApi.Host`
   - `Prabh.Finance.HttpApi.Host`
   - `Prabh.Finance.Blazor`
 
-![final result prabh finance page](images/final-result.png)
+  - you will see `Prabh.Finance UI` and all `Finance, Stock, and News` backends are running
+
+  ![alt text](image-4.png)
+
+  ![final result prabh finance page](images/final-result.png)
 
 ## Source Code
 

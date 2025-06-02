@@ -1,0 +1,42 @@
+<Solution>
+  <Folder Name="/apps/" Id="76b5870c-4ca4-41dc-a86b-afd68ca38e9b">
+    <Project Path="Prabh.Finance/src/Prabh.Finance.Blazor.Client/Prabh.Finance.Blazor.Client.csproj" />
+    <Project Path="Prabh.Finance/src/Prabh.Finance.Blazor/Prabh.Finance.Blazor.csproj" />
+    <Project Path="Prabh.Finance/src/Prabh.Finance.HttpApi.Client/Prabh.Finance.HttpApi.Client.csproj" />
+    <Project Path="Prabh.News/src/Prabh.News.Blazor.Client/Prabh.News.Blazor.Client.csproj" />
+    <Project Path="Prabh.News/src/Prabh.News.Blazor/Prabh.News.Blazor.csproj" />
+    <Project Path="Prabh.News/src/Prabh.News.HttpApi.Client/Prabh.News.HttpApi.Client.csproj" />
+    <Project Path="Prabh.Stock/src/Prabh.Stock.Blazor.Client/Prabh.Stock.Blazor.Client.csproj" />
+    <Project Path="Prabh.Stock/src/Prabh.Stock.Blazor/Prabh.Stock.Blazor.csproj" />
+  </Folder>
+  <Folder Name="/migrator/" Id="524af811-5820-4230-b468-18b9238a9345">
+    <Project Path="Prabh.Finance/src/Prabh.Finance.DbMigrator/Prabh.Finance.DbMigrator.csproj" />
+    <Project Path="Prabh.News/src/Prabh.News.DbMigrator/Prabh.News.DbMigrator.csproj" />
+    <Project Path="Prabh.Stock/src/Prabh.Stock.DbMigrator/Prabh.Stock.DbMigrator.csproj" />
+  </Folder>
+  <Folder Name="/services/" Id="02ea681e-c7d8-13c7-8484-4ac65e1b71e8">
+    <Project Path="Prabh.Finance/src/Prabh.Finance.Application.Contracts/Prabh.Finance.Application.Contracts.csproj" />
+    <Project Path="Prabh.Finance/src/Prabh.Finance.Application/Prabh.Finance.Application.csproj" />
+    <Project Path="Prabh.Finance/src/Prabh.Finance.Domain.Shared/Prabh.Finance.Domain.Shared.csproj" />
+    <Project Path="Prabh.Finance/src/Prabh.Finance.Domain/Prabh.Finance.Domain.csproj" />
+    <Project Path="Prabh.Finance/src/Prabh.Finance.EntityFrameworkCore/Prabh.Finance.EntityFrameworkCore.csproj" />
+    <Project Path="Prabh.Finance/src/Prabh.Finance.HttpApi.Host/Prabh.Finance.HttpApi.Host.csproj" />
+    <Project Path="Prabh.Finance/src/Prabh.Finance.HttpApi/Prabh.Finance.HttpApi.csproj" />
+    <Project Path="Prabh.News/src/Prabh.News.Application.Contracts/Prabh.News.Application.Contracts.csproj" />
+    <Project Path="Prabh.News/src/Prabh.News.Application/Prabh.News.Application.csproj" />
+    <Project Path="Prabh.News/src/Prabh.News.Domain.Shared/Prabh.News.Domain.Shared.csproj" />
+    <Project Path="Prabh.News/src/Prabh.News.Domain/Prabh.News.Domain.csproj" />
+    <Project Path="Prabh.News/src/Prabh.News.EntityFrameworkCore/Prabh.News.EntityFrameworkCore.csproj" />
+    <Project Path="Prabh.News/src/Prabh.News.HttpApi.Host/Prabh.News.HttpApi.Host.csproj" />
+    <Project Path="Prabh.News/src/Prabh.News.HttpApi/Prabh.News.HttpApi.csproj" />
+    <Project Path="Prabh.Stock/src/Prabh.Stock.Application.Contracts/Prabh.Stock.Application.Contracts.csproj" />
+    <Project Path="Prabh.Stock/src/Prabh.Stock.Application/Prabh.Stock.Application.csproj" />
+    <Project Path="Prabh.Stock/src/Prabh.Stock.Domain.Shared/Prabh.Stock.Domain.Shared.csproj" />
+    <Project Path="Prabh.Stock/src/Prabh.Stock.Domain/Prabh.Stock.Domain.csproj" />
+    <Project Path="Prabh.Stock/src/Prabh.Stock.EntityFrameworkCore/Prabh.Stock.EntityFrameworkCore.csproj" />
+    <Project Path="Prabh.Stock/src/Prabh.Stock.HttpApi.Client/Prabh.Stock.HttpApi.Client.csproj" />
+    <Project Path="Prabh.Stock/src/Prabh.Stock.HttpApi.Host/Prabh.Stock.HttpApi.Host.csproj" />
+    <Project Path="Prabh.Stock/src/Prabh.Stock.HttpApi/Prabh.Stock.HttpApi.csproj" />
+  </Folder>
+
+</Solution>
