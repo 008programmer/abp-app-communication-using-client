@@ -254,9 +254,6 @@ Troubleshooting tip
 
   ![alt text](images/cors-appsetting.png)
 
-- Change the `Pages/Index.razor` content in the `EventOrganizer.Blazor` project as shown below:
-
-Run the `EventOrganizer.HttpApi.Host` application to see the new `upcoming` endpoint on the Swagger UI:
 
 ## 🔌 Run & Results
 
