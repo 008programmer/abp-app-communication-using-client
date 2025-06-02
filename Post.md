@@ -1,4 +1,4 @@
-# 1- Understanding and adopting the new .slnx format to organize applications and services in a streamlined solution
+# 2- Adopting the new .slnx format to organize applications and services in a streamlined solution
 
 ## Introduction
 
@@ -15,7 +15,7 @@ These applications use `Blazor` for the UI layer and `PostgreSQL` as the databas
 
 ### 💻 Source Code
 
-Source code of the this completed post is [available on GitHub](https://github.com/008programmer/abp-multiple-apps-communication-and-restructuring/tree/1-consume-other-apps-api-using-clients).
+Source code of the this completed post is [available on GitHub](https://github.com/008programmer/abp-multiple-apps-communication-and-restructuring/tree/2-manage-complexity-by-new-slnx).
 
 ### 🖼️ Screenshots
 
@@ -81,25 +81,35 @@ Troubleshooting tip
 
 ## 🔌 Run multiple apps
 
-- Right click in solution and click `Multiple startup projects` and select these project
+- To run everything together:
 
-  - `Prabh.Stock.HttpApi.Host`
-  - `Prabh.News.HttpApi.Host`
-  - `Prabh.Finance.HttpApi.Host`
-  - `Prabh.Finance.Blazor`
+1.  Right-click on the solution > Set Startup Projects
+2.  Choose Multiple startup projects
+3.  Select:
 
-  - you will see `Prabh.Finance UI` and all `Finance, Stock, and News` backends are running
+    - `Prabh.Stock.HttpApi.Host`
+    - `Prabh.News.HttpApi.Host`
+    - `Prabh.Finance.HttpApi.Host`
+    - `Prabh.Finance.Blazor`
 
-  ![alt text](image-4.png)
+4.  Once started, you’ll have running instances of : `Prabh.Finance UI` and all `Finance, Stock, and News` backends
 
-  ![final result prabh finance page](images/final-result.png)
+![alt text](image-4.png)
+
+![final result prabh finance page](images/final-result.png)
 
 ## Source Code
 
-Source code of the this completed post is [available on GitHub](https://github.com/008programmer/abp-multiple-apps-communication-and-restructuring/tree/1-consume-other-apps-api-using-clients).
+Source code of the this completed post is [available on GitHub](https://github.com/008programmer/abp-multiple-apps-communication-and-restructuring/tree/2-manage-complexity-by-new-slnx).
 
 ## Next
 
-- While we are able to access `Stock API` and `News API` from `Finance UI`, But we found out that the process to run all four applications are quite complex.
+While we are now able to access the `Finance UI`, along with the `Finance, Stock, and News APIs`, from a single unified solution, there’s still room for improvement.
 
-- So, Our Next post is going to be 'Integrating `Prabh Finance UI` and APIs from Multiple ABP Applications into a new Solution' (Coming Soon\*)
+(coming soon)In the upcoming blog posts, we’ll focus on decoupling these applications for better scalability and cleaner architecture. This will be done in two stages:
+
+- Replacing dynamic proxies with static proxies
+
+- Switching from project references to NuGet package references
+
+Each step will be covered in a dedicated post to keep the process clear and focused.
