@@ -62,22 +62,22 @@ Troubleshooting tip
 
 - Add a empty solution name 'Prabh.Apps' in the root directory
 
-  ![alt text](image.png)
+  ![alt text](images/image.png)
 
 - Ok Here is the Twist, dotnet has introduced a new compact & clean format slnx format. so lets migrate to it by typing `dotnet sln migrate`.
-  ![alt text](image-1.png)
+  ![alt text](images/image-1.png)
 
 - Here is the format of new slnx
-  ![alt text](image-5.png)
+  ![alt text](images/image-5.png)
 
 - Now open the visual studio using this new `Prabh.Apps.slnx`
 - Then Right click and go to `Add` -> `New Solution Folder`
 
-![alt text](image-2.png)
+![alt text](images/image-2.png)
 
 - Right click on solution folder and add existing project.
 
-![alt text](image-3.png)
+![alt text](images/image-3.png)
 
 ## 🔌 Run multiple apps
 
@@ -94,7 +94,7 @@ Troubleshooting tip
 
 4.  Once started, you’ll have running instances of : `Prabh.Finance UI` and all `Finance, Stock, and News` backends
 
-![alt text](image-4.png)
+![alt text](images/image-4.png)
 
 ![final result prabh finance page](images/final-result.png)
 
