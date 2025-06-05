@@ -45,12 +45,12 @@ public class StockAppService : ApplicationService /*CrudAppService<XStock, Stock
         new() { Ticker = "NVDA", CompanyName = "NVIDIA Corp.", CurrentPrice = 1050.66m, Change = 15.30m, PercentChange = 1.48m }
     ];
 
-    public Task<StockDto> CreateAsync(CreateUpdateBookDto input)
+    public Task<StockDto> CreateAsync(CreateUpdateStockDto input)
     {
         throw new NotImplementedException();
     }
 
-    public Task<StockDto> UpdateAsync(Guid id, CreateUpdateBookDto input)
+    public Task<StockDto> UpdateAsync(Guid id, CreateUpdateStockDto input)
     {
         throw new NotImplementedException();
     }

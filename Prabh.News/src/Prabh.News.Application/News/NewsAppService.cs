@@ -50,7 +50,7 @@ public class NewsAppService : ApplicationService, INewsAppService
         );
     }
 
-    public Task<NewsDto> CreateAsync(CreateUpdateBookDto input)
+    public Task<NewsDto> CreateAsync(CreateUpdateNewsDto input)
     {
         throw new NotImplementedException();
     }
@@ -70,7 +70,7 @@ public class NewsAppService : ApplicationService, INewsAppService
         throw new NotImplementedException();
     }
 
-    public Task<NewsDto> UpdateAsync(Guid id, CreateUpdateBookDto input)
+    public Task<NewsDto> UpdateAsync(Guid id, CreateUpdateNewsDto input)
     {
         throw new NotImplementedException();
     }

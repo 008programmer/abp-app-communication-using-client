@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Prabh.News.Books;
 
-public class CreateUpdateBookDto
+public class CreateUpdateNewsDto
 {
     [Required]
     [StringLength(128)]

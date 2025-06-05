@@ -7,7 +7,7 @@ public class NewsBlazorAutoMapperProfile : Profile
 {
     public NewsBlazorAutoMapperProfile()
     {
-        CreateMap<BookDto, CreateUpdateBookDto>();
+        CreateMap<NewsDto, CreateUpdateNewsDto>();
         
         //Define your AutoMapper configuration here for the Blazor project.
     }

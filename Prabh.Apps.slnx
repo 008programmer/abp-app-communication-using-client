@@ -8,6 +8,7 @@
     <Project Path="Prabh.News/src/Prabh.News.HttpApi.Client/Prabh.News.HttpApi.Client.csproj" />
     <Project Path="Prabh.Stock/src/Prabh.Stock.Blazor.Client/Prabh.Stock.Blazor.Client.csproj" />
     <Project Path="Prabh.Stock/src/Prabh.Stock.Blazor/Prabh.Stock.Blazor.csproj" />
+    <Project Path="Prabh.Stock/src/Prabh.Stock.HttpApi.Client/Prabh.Stock.HttpApi.Client.csproj" />
   </Folder>
   <Folder Name="/migrator/" Id="524af811-5820-4230-b468-18b9238a9345">
     <Project Path="Prabh.Finance/src/Prabh.Finance.DbMigrator/Prabh.Finance.DbMigrator.csproj" />
@@ -34,7 +35,6 @@
     <Project Path="Prabh.Stock/src/Prabh.Stock.Domain.Shared/Prabh.Stock.Domain.Shared.csproj" />
     <Project Path="Prabh.Stock/src/Prabh.Stock.Domain/Prabh.Stock.Domain.csproj" />
     <Project Path="Prabh.Stock/src/Prabh.Stock.EntityFrameworkCore/Prabh.Stock.EntityFrameworkCore.csproj" />
-    <Project Path="Prabh.Stock/src/Prabh.Stock.HttpApi.Client/Prabh.Stock.HttpApi.Client.csproj" />
     <Project Path="Prabh.Stock/src/Prabh.Stock.HttpApi.Host/Prabh.Stock.HttpApi.Host.csproj" />
     <Project Path="Prabh.Stock/src/Prabh.Stock.HttpApi/Prabh.Stock.HttpApi.csproj" />
   </Folder>

@@ -9,3 +9,8 @@
 *.txt
 /Prabh.Finance/src/Prabh.Finance.Blazor/Logs/logs.txt
 /.vs
+
+/Prabh.Finance/src/Prabh.Finance.Blazor.Client/appsettings.secrets.json
+/Prabh.Finance/src/Prabh.Finance.HttpApi.Host/appsettings.secrets.json
+/Prabh.Stock/src/Prabh.Stock.HttpApi.Host/appsettings.secrets.json
+/Prabh.News/src/Prabh.News.HttpApi.Host/appsettings.secrets.json

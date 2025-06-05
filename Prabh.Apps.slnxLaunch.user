@@ -11,11 +11,11 @@
         "Action": "Start"
       },
       {
-        "Path": "Prabh.News\\src\\Prabh.News.HttpApi.Host\\Prabh.News.HttpApi.Host.csproj",
+        "Path": "Prabh.Stock\\src\\Prabh.Stock.HttpApi.Host\\Prabh.Stock.HttpApi.Host.csproj",
         "Action": "Start"
       },
       {
-        "Path": "Prabh.Stock\\src\\Prabh.Stock.HttpApi.Host\\Prabh.Stock.HttpApi.Host.csproj",
+        "Path": "Prabh.News\\src\\Prabh.News.HttpApi.Host\\Prabh.News.HttpApi.Host.csproj",
         "Action": "Start"
       }
     ]

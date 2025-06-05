@@ -7,7 +7,7 @@ public class StockBlazorAutoMapperProfile : Profile
 {
     public StockBlazorAutoMapperProfile()
     {
-        CreateMap<BookDto, CreateUpdateBookDto>();
+        CreateMap<StockDto, CreateUpdateStockDto>();
         
         //Define your AutoMapper configuration here for the Blazor project.
     }
