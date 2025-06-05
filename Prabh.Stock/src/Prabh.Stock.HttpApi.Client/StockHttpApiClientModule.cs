@@ -7,11 +7,15 @@ using Volo.Abp.VirtualFileSystem;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.TenantManagement;
+using Volo.Abp.Http.Client;
+using Volo.Abp;
 
 namespace Prabh.Stock;
 
 [DependsOn(
+
     typeof(StockApplicationContractsModule),
+    typeof(AbpHttpClientModule),
     typeof(AbpPermissionManagementHttpApiClientModule),
     typeof(AbpFeatureManagementHttpApiClientModule),
     typeof(AbpAccountHttpApiClientModule),
@@ -25,7 +29,7 @@ public class StockHttpApiClientModule : AbpModule
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        context.Services.AddHttpClientProxies(
+        context.Services.AddStaticHttpClientProxies(
             typeof(StockApplicationContractsModule).Assembly,
             RemoteServiceName
         );

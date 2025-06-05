@@ -1,19 +1,21 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Prabh.News;
+using Prabh.Stock;
 using Volo.Abp.Account;
+using Volo.Abp.FeatureManagement;
+using Volo.Abp.Http.Client;
+using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
-using Volo.Abp.VirtualFileSystem;
-using Volo.Abp.FeatureManagement;
-using Volo.Abp.Identity;
 using Volo.Abp.TenantManagement;
-using Prabh.Stock;
-using Prabh.News;
+using Volo.Abp.VirtualFileSystem;
 
 namespace Prabh.Finance;
 
 [DependsOn(
     typeof(FinanceApplicationContractsModule),
+    typeof(AbpHttpClientModule),
     typeof(AbpPermissionManagementHttpApiClientModule),
     typeof(AbpFeatureManagementHttpApiClientModule),
     typeof(AbpAccountHttpApiClientModule),
@@ -25,14 +27,16 @@ namespace Prabh.Finance;
 )]
 public class FinanceHttpApiClientModule : AbpModule
 {
-    public const string RemoteServiceName = "Default";
+    public const string RemoteServiceName = "Finance";
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        context.Services.AddHttpClientProxies(
+        context.Services.AddStaticHttpClientProxies(
             typeof(FinanceApplicationContractsModule).Assembly,
             RemoteServiceName
         );
+
+        
 
         Configure<AbpVirtualFileSystemOptions>(options =>
         {

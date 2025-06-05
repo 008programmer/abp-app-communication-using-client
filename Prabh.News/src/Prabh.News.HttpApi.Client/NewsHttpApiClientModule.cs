@@ -7,11 +7,13 @@ using Volo.Abp.VirtualFileSystem;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.TenantManagement;
+using Volo.Abp.Http.Client;
 
 namespace Prabh.News;
 
 [DependsOn(
     typeof(NewsApplicationContractsModule),
+    typeof(AbpHttpClientModule),
     typeof(AbpPermissionManagementHttpApiClientModule),
     typeof(AbpFeatureManagementHttpApiClientModule),
     typeof(AbpAccountHttpApiClientModule),
@@ -25,7 +27,7 @@ public class NewsHttpApiClientModule : AbpModule
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        context.Services.AddHttpClientProxies(
+        context.Services.AddStaticHttpClientProxies(
             typeof(NewsApplicationContractsModule).Assembly,
             RemoteServiceName
         );
