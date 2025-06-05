@@ -1,4 +1,4 @@
-# 3 - Replacing dynamic client proxies with static client proxies
+# 3 - Replacing Dynamic client proxies with Static client proxies
 
 ## Introduction
 
