@@ -1,21 +1,17 @@
-# 2- Adopting the new .slnx format to organize applications and services in a streamlined solution
+# 3- Replacing dynamic proxies with static proxies
 
 ## Introduction
 
-This post is part of my <i>`Managing Communication and Restructring blazor UI in ABP Multi-App`</i>.
+This post is part of my <i>`Managing Communication and Restructring blazor UI in ABP Multi-App`</i> series.
 We are working with three primary applications:
 
 - `Prabh.Stock` – Manages stock-related functionality
 - `Prabh.News` – Handles market news and updates
 - `Prabh.Finance` – Aggregates financial data, integrating both stock and news insights
 
-In this article, we’ll simplify running one or more applications simultaneously by introducing a new .slnx solution file at the root level. We’ll add all related projects into it using Visual Studio and organize them into solution folders for better maintainability.
+In this article, we’ll switch from dynamic to static client proxies in ABP and explore the key benefits of using static proxies, such as improved performance, stronger typing, and better maintainability.
 
 These applications use `Blazor` for the UI layer and `PostgreSQL` as the database provider.
-
-### 💻 Source Code
-
-Source code of the this completed post is [available on GitHub](https://github.com/008programmer/abp-multiple-apps-communication-and-restructuring/tree/2-manage-complexity-by-new-slnx).
 
 ### 🖼️ Screenshots
 
@@ -58,26 +54,69 @@ Troubleshooting tip
 
 ## Development
 
-### 🆕 Add a new Sln file by adding typing `dotnet new sln -n Prabh.Apps` in the root directory
+### 📖 ABP Client Proxy Types
 
-- Add a empty solution name 'Prabh.Apps' in the root directory
+- ABP provides two types of API client proxies:
 
-  ![alt text](images/image.png)
+  #### Static Proxies
 
-- Ok Here is the Twist, dotnet has introduced a new compact & clean format slnx format. so lets migrate to it by typing `dotnet sln migrate`.
-  ![alt text](images/image-1.png)
+  - Generated at development time
 
-- Here is the format of new slnx
-  ![alt text](images/image-5.png)
+  - Faster performance (no runtime metadata fetching)
 
-- Now open the visual studio using this new `Prabh.Apps.slnx`
-- Then Right click and go to `Add` -> `New Solution Folder`
+  - Must be manually regenerated when API changes
 
-![alt text](images/image-2.png)
+  - Ideal for production scenarios
 
-- Right click on solution folder and add existing project.
+  #### Dynamic Proxies
 
-![alt text](images/image-3.png)
+  - Generated at runtime
+
+  - No need to regenerate when API changes
+
+  - Easier to use during early development and testing
+
+  - Slightly slower at runtime
+
+  For more details, check out the official [ABP documentation](https://abp.io/docs/latest/framework/api-development/static-csharp-clients)
+
+### 🆕 Switching from Dynamic to Static Proxies in ABP
+
+1. The backend API must be running when generating the static proxies.
+   so Let's first generate proxy for `Prabh.Stock.HttpApi.Host`
+
+2. Go to the root folder of the .Client project whose static proxies we want to generate, in our case it is `Prabh.Stock.HttpApi.Client`
+
+   ![alt text](images/image-3-1.png)
+
+3. Repeat steps 1 and 2 these for `News and Finance API`
+
+4. Go to `Prabh.Stock.HttpApi.Client` and replace AddHttpClientProxies with AddHttpClientProxies and repeat for `Prabh.Finance.HttpApi.Client` and `Prabh.News.HttpApi.Client`
+
+   ```csharp
+   public class StockHttpApiClientModule : AbpModule
+   {
+       public const string RemoteServiceName = "Stocks";
+
+       public override void ConfigureServices(ServiceConfigurationContext context)
+       {
+           context
+             .Services
+             //.AddHttpClientProxies(
+             .AddStaticHttpClientProxies(
+               typeof(StockApplicationContractsModule).Assembly,
+               RemoteServiceName
+           );
+       }
+   }
+   ```
+
+## ⚠️ Small Fixes for Modular Setup
+
+- Typically when a proxy file is generated for a default setup it named is `abp-generate-proxy.json`, but becuase we are going modular, some fixes needs to done.
+  - Rename `abp-generate-proxy.json` to `{RemoteServiceName}-generate-proxy.json`
+  - Also change rootPath and remoteServiceName to {RemoteServiceName} like the image below
+    ![alt text](images/static1.png)
 
 ## 🔌 Run multiple apps
 
@@ -92,7 +131,7 @@ Troubleshooting tip
     - `Prabh.Finance.HttpApi.Host`
     - `Prabh.Finance.Blazor`
 
-4.  Once started, you’ll have running instances of : `Prabh.Finance UI` and all `Finance, Stock, and News` backends
+4.  Once started, you’ll have running instances of : `Prabh.Finance UI` and all `Finance, Stock, and News` backends that are using static proxies for communication
 
 ![alt text](images/image-4.png)
 
@@ -104,12 +143,4 @@ Source code of the this completed post is [available on GitHub](https://github.c
 
 ## Next
 
-While we are now able to access the `Finance UI`, along with the `Finance, Stock, and News APIs`, from a single unified solution, there’s still room for improvement.
-
-(coming soon)In the upcoming blog posts, we’ll focus on decoupling these applications for better scalability and cleaner architecture. This will be done in two stages:
-
-- Replacing dynamic proxies with static proxies
-
-- Switching from project references to NuGet package references
-
-Each step will be covered in a dedicated post to keep the process clear and focused.
+Now that we've integrated the `Finance UI` with all APIs using static proxies, the next step is to replace project references with NuGet package references — and explore the architectural and maintainability advantages this approach offers.
