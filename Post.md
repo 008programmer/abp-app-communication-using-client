@@ -1,4 +1,4 @@
-# 3 - Replacing dynamic proxies with static proxies
+# 3 - Replacing Dynamic client proxies with Static client proxies
 
 ## Introduction
 
@@ -139,7 +139,7 @@ Troubleshooting tip
 
 ## Source Code
 
-Source code of the this completed post is [available on GitHub](https://github.com/008programmer/abp-multiple-apps-communication-and-restructuring/tree/2-manage-complexity-by-new-slnx).
+Source code of the this completed post is [available on GitHub](https://github.com/008programmer/abp-multiple-apps-communication-and-restructuring/blob/3-static-over-dyanamic-proxies).
 
 ## Next
 
