@@ -106,7 +106,7 @@ Source code of the this completed post is [available on GitHub](https://github.c
 
 While we are now able to access the `Finance UI`, along with the `Finance, Stock, and News APIs`, from a single unified solution, there’s still room for improvement.
 
-(coming soon)In the upcoming blog posts, we’ll focus on decoupling these applications for better scalability and cleaner architecture. This will be done in two stages:
+In the upcoming blog posts, we’ll focus on decoupling these applications for better scalability and cleaner architecture. This will be done in two stages:
 
 - Replacing dynamic proxies with static proxies
 
