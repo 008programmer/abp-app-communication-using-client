@@ -6,6 +6,10 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <RootNamespace>Prabh.Stock</RootNamespace>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Title>Prabh.Stock Http Client</Title>
+    <PackageReadmeFile># ABP Multi-App Architecture Repository.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,6 +31,13 @@
   <ItemGroup>
     <EmbeddedResource Include="**\*generate-proxy.json" />
     <Content Remove="**\*generate-proxy.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\# ABP Multi-App Architecture Repository.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
