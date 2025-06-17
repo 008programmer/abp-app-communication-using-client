@@ -7,6 +7,8 @@
     <Nullable>enable</Nullable>
     <RootNamespace>Prabh.Stock</RootNamespace>
     <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile># ABP Multi-App Architecture Repository.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,6 +34,13 @@
   <ItemGroup>
     <EmbeddedResource Include="Localization\Stock\*.json" />
     <Content Remove="Localization\Stock\*.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\# ABP Multi-App Architecture Repository.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
