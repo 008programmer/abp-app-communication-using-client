@@ -1,4 +1,4 @@
-# 3 - Switching from Project References to Package References
+# 4 - Switching from Project References to Package References
 
 ## Introduction
 
