@@ -59,8 +59,6 @@ Troubleshooting tip
 
 ## Development
 
-### Static Proxis should now use contracts as we are moving toward package reference
-
 ### 📖 What Are Project References?
 
 - Project references are a direct link between two projects in the same solution or outside. For example, `Prabh.Finance.Blazor.Client` UI project may have a reference to `Prabh.Finance.HttpApi.Client`.
@@ -151,7 +149,7 @@ Troubleshooting tip
 
 ## Source Code
 
-Source code of the this completed post is [available on GitHub](https://github.com/008programmer/abp-multiple-apps-communication-and-restructuring/blob/3-static-over-dyanamic-proxies).
+Source code of the this completed post is [available on GitHub](https://github.com/008programmer/abp-multiple-apps-communication-and-restructuring/tree/4-switching-from-project-references-to-package).
 
 ## Next
 
