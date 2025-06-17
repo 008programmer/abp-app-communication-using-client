@@ -1,4 +1,4 @@
-# 3 - Replacing Dynamic client proxies with Static client proxies
+# 4 - Switching from Project References to Package References
 
 ## Introduction
 
@@ -9,7 +9,12 @@ We are working with three primary applications:
 - `Prabh.News` – Handles market news and updates
 - `Prabh.Finance` – Aggregates financial data, integrating both stock and news insights
 
-In this article, we’ll switch from dynamic to static client proxies in ABP and explore the key benefits of using static proxies, such as improved performance, stronger typing, and better maintainability.
+In this article, we’ll switch from Project References to Package References in ABP and explore the key benefits of using package reference, such as loose coupling between services, and faster builds.
+
+Once your solution involves multiple apps or user interfaces, relying solely on project references can quickly become a bottleneck.
+
+This aligns perfectly with ABP’s recommendation to use static client proxies with packaged
+HttpApi.Client projects.
 
 These applications use `Blazor` for the UI layer and `PostgreSQL` as the database provider.
 
@@ -54,69 +59,79 @@ Troubleshooting tip
 
 ## Development
 
-### 📖 ABP Client Proxy Types
+### Static Proxis should now use contracts as we are moving toward package reference
 
-- ABP provides two types of API client proxies:
+### 📖 What Are Project References?
 
-  #### Static Proxies
+- Project references are a direct link between two projects in the same solution or outside. For example, `Prabh.Finance.Blazor.Client` UI project may have a reference to `Prabh.Finance.HttpApi.Client`.
 
-  - Generated at development time
+  This is fine when:
 
-  - Faster performance (no runtime metadata fetching)
+  - All projects are in the same solution.
 
-  - Must be manually regenerated when API changes
+  - You are in the early stages of development.
 
-  - Ideal for production scenarios
+  - You want immediate access to code changes without publishing.
 
-  #### Dynamic Proxies
+  But it comes with a cost:
 
-  - Generated at runtime
+  - Solutions become tightly coupled.
 
-  - No need to regenerate when API changes
+  - Builds become slower and more error-prone.
 
-  - Easier to use during early development and testing
+  - Code sharing across solutions or repositories is difficult.
 
-  - Slightly slower at runtime
+  - Managing versioning is impossible.
 
-  For more details, check out the official [ABP documentation](https://abp.io/docs/latest/framework/api-development/static-csharp-clients)
+### 📦 Enter Package References
 
-### 🆕 Switching from Dynamic to Static Proxies in ABP
+- Package references are a cleaner alternative — you build your shared projects once, publish them as NuGet packages, and consume them via versioned references.
 
-1. The backend API must be running when generating the static proxies.
-   so Let's first generate proxy for `Prabh.Stock.HttpApi.Host`
+  In the context of ABP and our apps:
 
-2. Go to the root folder of the .Client project whose static proxies we want to generate, in our case it is `Prabh.Stock.HttpApi.Client`
+  - We generated static client proxies for APIs (instead of using dynamic ones).
+  - We will package them as NuGet packages.
+  - Reference these packages in your consumer UIs or apps.
 
-   ![alt text](images/image-3-1.png)
+  This approach brings:
 
-3. Repeat steps 1 and 2 these for `News and Finance API`
+  - Loose coupling between services.
+  - Faster builds, since projects don’t compile together.
+  - Clear version control and upgrade paths.
+  - Better developer experience when dealing with remote backends or micro-frontends.
 
-4. Go to `Prabh.Stock.HttpApi.Client` and replace AddHttpClientProxies with AddHttpClientProxies and repeat for `Prabh.Finance.HttpApi.Client` and `Prabh.News.HttpApi.Client`
+  Comparision between Package v/s Project References
 
-   ```csharp
-   public class StockHttpApiClientModule : AbpModule
-   {
-       public const string RemoteServiceName = "Stocks";
+  ![alt text](images/package-refernce.png)
 
-       public override void ConfigureServices(ServiceConfigurationContext context)
-       {
-           context
-             .Services
-             //.AddHttpClientProxies(
-             .AddStaticHttpClientProxies(
-               typeof(StockApplicationContractsModule).Assembly,
-               RemoteServiceName
-           );
-       }
-   }
-   ```
+  [Creating and publishing NuGet packages](https://learn.microsoft.com/en-gb/nuget/quickstart/create-and-publish-a-package-using-the-dotnet-cli) is a broad topic with its own set of [best practices](https://learn.microsoft.com/en-gb/nuget/create-packages/package-authoring-best-practices), so I’ve chosen not to cover it in this video. If you’re interested, you can explore the following resources
 
-## ⚠️ Small Fixes for Modular Setup
+### 🆕 Create the package using Visual Studio
 
-- Typically when a proxy file is generated for a default setup it named is `abp-generate-proxy.json`, but becuase we are going modular, some fixes needs to done.
-  - Rename `abp-generate-proxy.json` to `{RemoteServiceName}-generate-proxy.json`
-  - Also change rootPath and remoteServiceName to {RemoteServiceName} like the image below
-    ![alt text](images/static1.png)
+1. Let's first generate package for `Prabh.Stock.HttpApi.Host`
+
+2. Go to the root folder of the .Client project and choose project and properties
+   ![alt text](images/package-reference-3.png)
+
+   - Enter Essentials package details, choose a md file for readme and Choose Licencse type 'SDPX Licence Expression' and in Licence Expression textbox below type 'MIT'
+
+3. Once done, choose release mode and then right-click on the project and select ‘Pack’ after building it again.
+   ![alt text](images/package-reference-4.png)
+4. If successful, you'll see the output in the Output window.
+   ![alt text](images/package-reference-5.png)
+
+5. Create an account on the official NuGet website if you haven't registered already.
+   ![alt text](images/package-reference-6.png) and upload your nupkg file that will be in your bin / release folder
+
+### ⚠️ Caution: It's always better to use static proxies along with contracts when moving towards NuGet packages
+
+- You can learn more about it at [abp docs](https://abp.io/docs/latest/framework/api-development/static-csharp-clients#with-contracts-or-without-contracts)
+
+- If we had created the static proxies with contracts in our previous blog, we wouldn't need to create three separate packages now.
+  ![alt text](images/blog-4-1.png)
+- There's no need to install all three packages separately. Simply installing the parent package is enough, as it will automatically bring in its dependent packages.
+- Our csproj file will look somethink like this
+  ![alt text](images/blog-4-2.png)
 
 ## 🔌 Run multiple apps
 
@@ -131,11 +146,8 @@ Troubleshooting tip
     - `Prabh.Finance.HttpApi.Host`
     - `Prabh.Finance.Blazor`
 
-4.  Once started, you’ll have running instances of : `Prabh.Finance UI` and all `Finance, Stock, and News` backends that are using static proxies for communication
-
-![alt text](images/image-4.png)
-
-![final result prabh finance page](images/final-result.png)
+4.  Once started, you’ll have running instances of : `Prabh.Finance UI` and all `Finance, Stock, and News` backends that are using package refernces for communication
+    ![final result prabh finance page](images/final-result.png)
 
 ## Source Code
 
@@ -143,4 +155,4 @@ Source code of the this completed post is [available on GitHub](https://github.c
 
 ## Next
 
-Now that we've integrated the `Finance UI` with all APIs using static proxies, the next step is to replace project references with NuGet package references — and explore the architectural and maintainability advantages this approach offers.
+Now that we have replaced our project references with package references, the next step is to replace News and Stocks Blazor application into one backOffice UI app along with Finance UI public app while exploring ABP.
